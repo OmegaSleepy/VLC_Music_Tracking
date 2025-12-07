@@ -1,33 +1,38 @@
 package vlc;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Song {
+
+    private static Map<String, String> map = Map.of("&#39;","'");
+
+    static final Song EMPTY_SONG = new Song("","","","",0);
 
     public String title;
     public String artist;
     public String album;
     public String comment;
-    public String length;
+    public int length;
 
-    public Song (String title, String artist, String album, String comment, String length) {
+    public Song (String title, String artist, String album, String comment, int length) {
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.comment = comment;
         this.length = length;
+        fix();
     }
 
-//    public static <T extends Collection<String>> Song fromList(T list){
-//        String [] values = list.toArray(new String[]{});
-//
-//        for(String s: values){
-//            System.out.println(s);
-//        }
-//
-//        return new Song(values[2],values[1],values[0],values[3]);
-//    }
+    private void fix(){
+        for(String s: map.keySet()){
+            title = title.replace(s,map.get(s));
+            artist = artist.replace(s,map.get(s));
+            album = album.replace(s,map.get(s));
+        }
+    }
 
     @Override
     public String toString () {

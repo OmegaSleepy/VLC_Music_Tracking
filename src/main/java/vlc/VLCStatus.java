@@ -36,23 +36,28 @@ public class VLCStatus {
 
         NodeList infos = doc.getElementsByTagName("info");
         NodeList lengths = doc.getElementsByTagName("length");
+        NodeList states = doc.getElementsByTagName("state");
 
         int songLength = 0;
         if (lengths.getLength() > 0) {
             songLength = Integer.parseInt(lengths.item(0).getTextContent());
         }
 
-        int minutes = songLength / 60;
-        int seconds = songLength % 60;
+        String state = "";
+        if(states.getLength() > 0){
+            state = states.item(0).getTextContent();
+        }
 
-        String length = minutes + ":" + seconds;
+        if(!state.equals("playing")){
+            return Song.EMPTY_SONG;
+        }
 
         String title = (getAttribute(infos,"title"));
         String artist = (getAttribute(infos,"artist"));
         String album = (getAttribute(infos,"album"));
         String comment = (getAttribute(infos,"comment"));
 
-        return new Song(title, artist, album, comment, length);
+        return new Song(title, artist, album, comment, songLength);
     }
 
     private static Document getDocument () throws IOException, ParserConfigurationException, SAXException {
