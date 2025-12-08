@@ -1,4 +1,4 @@
-package vlc;
+package vlc.tracker;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -48,16 +48,12 @@ public class VLCStatus {
             state = states.item(0).getTextContent();
         }
 
-        if(!state.equals("playing")){
-            return Song.EMPTY_SONG;
-        }
-
         String title = (getAttribute(infos,"title"));
         String artist = (getAttribute(infos,"artist"));
         String album = (getAttribute(infos,"album"));
         String comment = (getAttribute(infos,"comment"));
 
-        return new Song(title, artist, album, comment, songLength);
+        return new Song(title, artist, album, comment, songLength, state);
     }
 
     private static Document getDocument () throws IOException, ParserConfigurationException, SAXException {

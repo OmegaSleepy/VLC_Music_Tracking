@@ -1,7 +1,5 @@
-package vlc;
+package vlc.tracker;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,15 +14,23 @@ public class Song {
     public String album;
     public String comment;
     public int length;
+    public String status;
 
     public Song (String title, String artist, String album, String comment, int length) {
+        this(title, artist, album, comment, length,"");
+    }
+
+    public Song (String title, String artist, String album, String comment, int length, String state) {
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.comment = comment;
         this.length = length;
+        this.status = state;
         fix();
+
     }
+
 
     private void fix(){
         for(String s: map.keySet()){
