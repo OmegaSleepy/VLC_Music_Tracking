@@ -4,18 +4,28 @@ import sql.*;
 
 import java.util.ArrayList;
 
-public class Main {
-    static ArrayList<Song> songs = new ArrayList<>();
+import static vlc.tracker.Util.quote;
 
-    private static String quote (String s) {
-        return "\"" + s + "\"";
+public class Main {
+
+    public static final double ATTENTION_RATE = 0.3;
+
+    public static ArrayList<Song> songs = new ArrayList<>();
+
+    public static boolean isAttendant (int time, Song song){
+        if(time < song.length*ATTENTION_RATE) {
+            Log.warn("Attention too low -%s%%, must be at least %s%%!".formatted((double) time / song.length, ATTENTION_RATE));
+            return false;
+        }
+        return true;
     }
 
-    private static void addToDB (Song song) {
+    public static void addToDB (Song song, int time) {
 
         if(song.equals(Song.EMPTY_SONG)) return;
 
         StringBuilder statement = new StringBuilder();
+
         statement.append("insert into musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
                 quote(song.title),
                 quote(song.artist),
@@ -23,6 +33,7 @@ public class Main {
                 quote(song.comment),
                 song.length
         ));
+
         statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+1;");
 
         Query.getResult(statement.toString());
@@ -31,7 +42,9 @@ public class Main {
 
     }
 
-    private static void addTime(Song song, double time){
+    public static void addTime(Song song, double time){
+
+
         if(song.equals(Song.EMPTY_SONG)) return;
 
         //ms -> s
@@ -46,7 +59,7 @@ public class Main {
 
     }
 
-    private static void printSongs(){
+    public static void printSongs(){
         Log.logSelect.accept(Query.getResult("SELECT * FROM musicindex.musicspy " +
                 "where title != \"title\" and title is not null " +
                 "order by playtime desc;"));
@@ -63,7 +76,6 @@ public class Main {
         Song previous = Song.EMPTY_SONG;
         Song current = Song.EMPTY_SONG;
 
-
         long timeStep = (long) 1e3;
         double timeListenedToTheSong = 0;
 
@@ -71,7 +83,6 @@ public class Main {
             
             try{
                 current = VLCStatus.getCurrentSong();
-
             } catch (Exception e) {
                 addTime(previous, timeListenedToTheSong);
                 printSongs();
@@ -97,11 +108,10 @@ public class Main {
             if(!current.status.equals("paused"))
                 timeListenedToTheSong += timeStep;
 
-            System.out.printf("\rPlayed for %s seconds", timeListenedToTheSong/1000);
+            System.out.printf("\rPlayed for %s sec", timeListenedToTheSong/1000);
 
-            if(current.status.equals("paused")){
+            if(current.status.equals("paused"))
                 System.out.print(". Paused");
-            }
 
         }
 
