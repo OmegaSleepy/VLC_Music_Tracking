@@ -4,19 +4,20 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.file.Path
 
+const val PYTHON_PATH = "C:/Users/THEBEAST/AppData/Local/Programs/Python/Python310/python.exe"
+const val MUSIC_DIRECTORY = "C:/Users/THEBEAST/music"
+
 fun runPython(args: Array<String>, scriptPath: Path) {
-    val pythonPath =
-        "C:/Users/THEBEAST/AppData/Local/Programs/Python/Python310/python.exe"
 
     val scriptPath = scriptPath.toAbsolutePath().toString()
 
     val command = ArrayList<String>()
-    command.add(pythonPath)
+    command.add(PYTHON_PATH)
     command.add(scriptPath)
-    command.addAll(args.toList())   // ✅ FIXED
+    command.addAll(args.toList())
 
     val pb = ProcessBuilder(command)
-        .directory(Path.of("C:/Users/THEBEAST/Music").toFile())
+        .directory(Path.of(MUSIC_DIRECTORY).toFile())
         .redirectErrorStream(true)
 
     val process = pb.start()
