@@ -8,6 +8,7 @@ public class Song {
     private static Map<String, String> map = Map.of("&#39;","'");
 
     static final Song EMPTY_SONG = new Song("","","","",0);
+    static final Song TITLE_SONG = new Song("title","artist","album","comment",0);
 
     public String title;
     public String artist;
@@ -30,7 +31,6 @@ public class Song {
         fix();
 
     }
-
 
     private void fix(){
         for(String s: map.keySet()){

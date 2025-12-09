@@ -1,6 +1,7 @@
 package vlc.tracker
 
 import sql.Query
+import java.nio.file.Path
 
 fun createDBandTable(){
 
@@ -23,6 +24,12 @@ fun select(){
     Query.getResult("SELECT * FROM musicindex.musicspy order by timesSeen desc;")
 }
 
+fun openVLC() {
+    val pp = ProcessBuilder("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe")
+    pp.start()
+}
+
 fun main(args: Array<String>) {
-    select()
+    val scriptPah = Path.of("DownloadMusic.py")
+    runPython(arrayOf("-single{hWqLuSnyqbI}"), scriptPah)
 }

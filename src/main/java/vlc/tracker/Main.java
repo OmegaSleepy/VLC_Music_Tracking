@@ -4,7 +4,7 @@ import sql.*;
 
 import java.util.ArrayList;
 
-import static vlc.tracker.Util.quote;
+import static vlc.tracker.Util.*;
 
 public class Main {
 
@@ -12,7 +12,7 @@ public class Main {
 
     public static void addToDB (Song song, int time) {
 
-        if(song.equals(Song.EMPTY_SONG)) return;
+        if(isValid(song)) return;
 
         StringBuilder statement = new StringBuilder();
 
@@ -37,8 +37,7 @@ public class Main {
 
     public static void addTime(Song song, double time){
 
-
-        if(song.equals(Song.EMPTY_SONG)) return;
+        if(isValid(song)) return;
 
         //ms -> s
         time /= 1000;
@@ -52,12 +51,6 @@ public class Main {
                 "where title = %s;".formatted(quote(song.title));
         Query.getResult(statement);
 
-    }
-
-    public static void printSongs(){
-        Log.logSelect.accept(Query.getResult("SELECT * FROM musicindex.musicspy " +
-                "where title != \"title\" and title is not null " +
-                "order by playtime desc;"));
     }
 
     public static void main (String[] args) throws Exception {
@@ -81,9 +74,12 @@ public class Main {
             } catch (Exception e) { //meaning VLC if offline
                 addTime(previous, timeListenedToTheSong);
                 printSongs();
-                //TODO here we ask if we want to start check confirms
-                Log.error("Check if VLC is started");
-                CrashUtil.crash(e);
+
+                if(Util.getUserInput(
+                        "Enter any value to open vlc, none to crash"
+                ).isBlank()) Util.end(e);
+
+                ScriptsKt.openVLC();
             }
 
             if (!previous.equals(current)) {
@@ -98,17 +94,9 @@ public class Main {
                 previous = current;
             }
 
-            //Time block
-
             Thread.sleep(timeStep);
 
-            if(!current.status.equals("paused"))
-                timeListenedToTheSong += timeStep;
-
-            System.out.printf("\rPlayed for %s sec", timeListenedToTheSong/1000);
-
-            if(current.status.equals("paused"))
-                System.out.print(". Paused");
+            timeListenedToTheSong = printAndUpdateTime(current, timeListenedToTheSong, timeStep);
 
         }
 
@@ -116,6 +104,19 @@ public class Main {
 
         Script.end(start, System.nanoTime());
 
+    }
+
+    private static double printAndUpdateTime (Song current, double timeListenedToTheSong, long timeStep) {
+
+        if(!current.status.equals("paused"))
+            timeListenedToTheSong += timeStep;
+
+        System.out.printf("\rPlayed for %s sec", timeListenedToTheSong /1000);
+
+        if(current.status.equals("paused"))
+            System.out.print(". Paused");
+
+        return timeListenedToTheSong;
     }
 
 }
