@@ -8,8 +8,6 @@ public class Main {
                 case "tracker":
                     vlc.tracker.Main.main(null);
                     break;
-                case "console":
-                    vlc.console.Main.main(null);
             }
         }
     }

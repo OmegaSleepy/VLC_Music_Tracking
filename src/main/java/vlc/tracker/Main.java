@@ -8,17 +8,7 @@ import static vlc.tracker.Util.quote;
 
 public class Main {
 
-    public static final double ATTENTION_RATE = 0.3;
-
     public static ArrayList<Song> songs = new ArrayList<>();
-
-    public static boolean isAttendant (int time, Song song){
-        if(time < song.length*ATTENTION_RATE) {
-            Log.warn("Attention too low -%s%%, must be at least %s%%!".formatted((double) time / song.length, ATTENTION_RATE));
-            return false;
-        }
-        return true;
-    }
 
     public static void addToDB (Song song, int time) {
 
@@ -34,7 +24,10 @@ public class Main {
                 song.length
         ));
 
-        statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+1;");
+        int change = 0;
+        if(time < 20) change = 1;
+
+        statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
 
         Query.getResult(statement.toString());
 
@@ -51,6 +44,8 @@ public class Main {
         time /= 1000;
 
         var formatedTime = Math.ceil(time);
+
+        if(time < 20) return;
 
         String statement = "update musicSpy " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
@@ -83,10 +78,10 @@ public class Main {
             
             try{
                 current = VLCStatus.getCurrentSong();
-            } catch (Exception e) {
+            } catch (Exception e) { //meaning VLC if offline
                 addTime(previous, timeListenedToTheSong);
                 printSongs();
-
+                //TODO here we ask if we want to start check confirms
                 Log.error("Check if VLC is started");
                 CrashUtil.crash(e);
             }
@@ -94,14 +89,16 @@ public class Main {
             if (!previous.equals(current)) {
                 System.out.println();
 
-                addTime(previous,timeListenedToTheSong);
-                timeListenedToTheSong = 0;
+                addTime(previous, timeListenedToTheSong);
 
                 songs.add(current);
-                addToDB(current);
+                addToDB(current, (int) timeListenedToTheSong);
 
+                timeListenedToTheSong = 0;
                 previous = current;
             }
+
+            //Time block
 
             Thread.sleep(timeStep);
 
