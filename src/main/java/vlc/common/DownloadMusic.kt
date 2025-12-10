@@ -8,18 +8,15 @@ import java.nio.file.Path
 val PYTHON_PATH: Path = Path.of("C:/Users/THEBEAST/AppData/Local/Programs/Python/Python310/python.exe")
 @JvmField
 val MUSIC_DIRECTORY: Path = Path.of("C:/Users/THEBEAST/music")
-@JvmField
-val SCRIPT_PATH: Path = Path.of("src/main/python/DownloadMusic.py")
 
-fun runPython(args: Array<String>, scriptPath: Path) {
+fun runPython(args: Array<String>) {
 
-    val scriptPath = scriptPath.toAbsolutePath().toString()
+    val scriptPath = extractPythonScript()
 
     val command = ArrayList<String>()
     command.add(PYTHON_PATH.toString())
-    command.add(scriptPath)
-    command.addAll(args.toList())
-
+    command.add(scriptPath.toAbsolutePath().toString())
+    command.addAll(args)
 
     val pb = ProcessBuilder(command)
         .directory(MUSIC_DIRECTORY.toFile())

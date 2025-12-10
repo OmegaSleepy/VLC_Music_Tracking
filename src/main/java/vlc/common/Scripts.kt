@@ -60,6 +60,5 @@ fun packageAlbums(albums: List<String>):String {
 }
 
 fun main(args: Array<String>) {
-    val scriptPah = Path.of("DownloadMusic.py")
-    runPython(arrayOf("-single{hWqLuSnyqbI}"), scriptPah)
+    runPython(arrayOf("-single{hWqLuSnyqbI}"))
 }

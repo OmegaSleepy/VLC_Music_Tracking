@@ -2,6 +2,7 @@ package vlc.ui;
 
 import sql.Log;
 import vlc.common.DownloadMusicKt;
+import vlc.common.PythonFileManagerKt;
 import vlc.common.ScriptsKt;
 
 import javax.swing.*;
@@ -93,8 +94,7 @@ public class DownloadUI {
                         ScriptsKt.packageAlbums(
                                 Collections.singletonList(formatedUrl)
                         )
-                },
-                DownloadMusicKt.SCRIPT_PATH
+                }
         );
     }
 
@@ -108,8 +108,7 @@ public class DownloadUI {
                         ScriptsKt.packageSingles(
                                 Collections.singletonList(getSingleUrl(url))
                         )
-                },
-                DownloadMusicKt.SCRIPT_PATH
+                }
         );
     }
 
