@@ -16,7 +16,7 @@ public class Util {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print(message);
+        System.out.print(message + ": ");
 
         return scanner.nextLine();
 

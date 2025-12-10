@@ -25,7 +25,15 @@ fun select(){
 }
 
 fun openVLC() {
-    val pp = ProcessBuilder("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe")
+    val dir = Path.of("C:/Program Files/VideoLan/VLC/vlc.exe")
+    val commands = "C:/Users/THEBEAST/Music/STARSET/Album - DIVISIONS/MANIFEST.mp3"
+
+    val args = ArrayList<String>()
+    args.add(dir.toString())
+    args.add(commands)
+
+    val pp = ProcessBuilder(args)
+
     pp.start()
 }
 

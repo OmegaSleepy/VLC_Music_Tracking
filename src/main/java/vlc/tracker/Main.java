@@ -8,6 +8,8 @@ import static vlc.tracker.Util.*;
 
 public class Main {
 
+    public static final int MINIMAL_ATTENTION = 20; //seconds
+
     public static ArrayList<Song> songs = new ArrayList<>();
 
     public static void addToDB (Song song, int time) {
@@ -24,8 +26,9 @@ public class Main {
                 song.length
         ));
 
-        int change = 0;
-        if(time < 20) change = 1;
+        int change = 1;
+        if(time/1000 < MINIMAL_ATTENTION) change = 0;
+        System.out.println(time/1000);
 
         statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
 
@@ -44,7 +47,7 @@ public class Main {
 
         var formatedTime = Math.ceil(time);
 
-        if(time < 20) return;
+        if(time < MINIMAL_ATTENTION) return;
 
         String statement = "update musicSpy " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
