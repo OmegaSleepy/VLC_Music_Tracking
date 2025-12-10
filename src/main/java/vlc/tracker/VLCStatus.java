@@ -90,9 +90,4 @@ public class VLCStatus {
         return attribute;
     }
 
-
-    public static void main(String[] args) throws Exception {
-
-        System.out.println(getCurrentSong());
-    }
 }

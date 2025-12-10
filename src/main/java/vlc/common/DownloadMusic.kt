@@ -1,4 +1,4 @@
-package vlc.tracker
+package vlc.common
 
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -9,7 +9,7 @@ val PYTHON_PATH: Path = Path.of("C:/Users/THEBEAST/AppData/Local/Programs/Python
 @JvmField
 val MUSIC_DIRECTORY: Path = Path.of("C:/Users/THEBEAST/music")
 @JvmField
-val SCRIPT_PATH: Path = Path.of("DownloadMusic.py")
+val SCRIPT_PATH: Path = Path.of("src/main/python/DownloadMusic.py")
 
 fun runPython(args: Array<String>, scriptPath: Path) {
 

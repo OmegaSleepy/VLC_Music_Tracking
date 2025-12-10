@@ -1,12 +1,11 @@
 package vlc.ui;
 
 import sql.Log;
-import vlc.tracker.DownloadMusicKt;
-import vlc.tracker.ScriptsKt;
+import vlc.common.DownloadMusicKt;
+import vlc.common.ScriptsKt;
 
 import javax.swing.*;
 import java.util.Collections;
-import java.util.List;
 
 public class DownloadUI {
     private JTextField writeDownTheFullTextField;
@@ -41,23 +40,46 @@ public class DownloadUI {
                 .substring(0,PLAYLIST_CODE_LENGHT);
     }
 
-    public DownloadUI () {
+    public DownloadUI() {
         DOWNLOADSENDTOTHEButton.addActionListener(e -> {
+            LastDownload.setText("Downloading...");
+            DOWNLOADSENDTOTHEButton.setEnabled(false);
 
             String url = writeDownTheFullTextField.getText();
 
-            if(url.equals("write down the full URL")) {
+            if (url.equals("write down the full URL")) {
                 Log.warn("The full URL is invalid!");
+                LastDownload.setText("Downloading failure! Invalid URL!");
+                DOWNLOADSENDTOTHEButton.setEnabled(true);
                 return;
             }
 
-            if(url.contains("watch?v=")) {
-                downloadSingle(url);
-            } else{
-                downloadAlbum(url);
-            }
+            SwingWorker<Void, Void> worker = new SwingWorker<>() {
+                @Override
+                protected Void doInBackground() {
+                    if (url.contains("watch?v=")) {
+                        downloadSingle(url);
+                    } else {
+                        downloadAlbum(url);
+                    }
+                    return null;
+                }
 
+                @Override
+                protected void done() {
+                    try {
+                        get(); // rethrow exceptions from doInBackground
+                        LastDownload.setText("Downloaded %s".formatted(url));
+                    } catch (Exception ex) {
+                        Log.warn("Download failed: %s".formatted(ex.getMessage()));
+                        LastDownload.setText("Downloading failure! %s".formatted(ex.getMessage()));
+                    } finally {
+                        DOWNLOADSENDTOTHEButton.setEnabled(true);
+                    }
+                }
+            };
 
+            worker.execute();
         });
     }
 
@@ -92,11 +114,14 @@ public class DownloadUI {
     }
 
     public static void main (String[] args) {
+        Log.MAX_LOGS = 8;
+        Log.cleanUp();
+
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Music Downloader");
             frame.setContentPane(new DownloadUI().getPanel());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
+            frame.setSize(800, 303);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });

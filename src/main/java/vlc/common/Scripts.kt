@@ -1,4 +1,4 @@
-package vlc.tracker
+package vlc.common
 
 import sql.Query
 import java.nio.file.Path
