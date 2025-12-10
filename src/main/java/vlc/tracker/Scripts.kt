@@ -37,6 +37,28 @@ fun openVLC() {
     pp.start()
 }
 
+fun packageSingles(singles: List<String>):String {
+
+    val builder = StringBuilder("-single{")
+    for (single in singles) {
+        builder.append(single).append(',')
+    }
+    builder.removeRange(builder.length - 1, builder.length - 1)
+    builder.append("}")
+
+    return builder.toString()
+}
+
+fun packageAlbums(albums: List<String>):String {
+    val builder = StringBuilder("-albums{")
+    for (album in albums) {
+        builder.append(album).append(',')
+    }
+    builder.removeRange(builder.length - 1, builder.length - 1)
+    builder.append("}")
+    return builder.toString()
+}
+
 fun main(args: Array<String>) {
     val scriptPah = Path.of("DownloadMusic.py")
     runPython(arrayOf("-single{hWqLuSnyqbI}"), scriptPah)

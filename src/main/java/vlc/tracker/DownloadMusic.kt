@@ -4,20 +4,25 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.file.Path
 
-const val PYTHON_PATH = "C:/Users/THEBEAST/AppData/Local/Programs/Python/Python310/python.exe"
-const val MUSIC_DIRECTORY = "C:/Users/THEBEAST/music"
+@JvmField
+val PYTHON_PATH: Path = Path.of("C:/Users/THEBEAST/AppData/Local/Programs/Python/Python310/python.exe")
+@JvmField
+val MUSIC_DIRECTORY: Path = Path.of("C:/Users/THEBEAST/music")
+@JvmField
+val SCRIPT_PATH: Path = Path.of("DownloadMusic.py")
 
 fun runPython(args: Array<String>, scriptPath: Path) {
 
     val scriptPath = scriptPath.toAbsolutePath().toString()
 
     val command = ArrayList<String>()
-    command.add(PYTHON_PATH)
+    command.add(PYTHON_PATH.toString())
     command.add(scriptPath)
     command.addAll(args.toList())
 
+
     val pb = ProcessBuilder(command)
-        .directory(Path.of(MUSIC_DIRECTORY).toFile())
+        .directory(MUSIC_DIRECTORY.toFile())
         .redirectErrorStream(true)
 
     val process = pb.start()
