@@ -18,7 +18,7 @@
         }
         div {
             align-items: center;
-            height: 100vh;
+            padding-bottom: 1cm;
         }
 
         table {
@@ -105,8 +105,26 @@
 </head>
 <body>
 <h1> VLC information</h1>
+
 <div>
     <table>
+        <tr>
+            <th> VLC Version</th>
+            <th> Export Date</th>
+            <th> Total Songs</th>
+            <th> Total Time (hh:mm:ss)</th>
+        </tr>
+        <tr>
+            <td> 3.0.11</td>
+            <td> 2024-06-15</td>
+            <td> 150</td>
+            <td> 9:22:30</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table id="MusicTable">
         <tr>
             <th> Title</th>
             <th> Artist</th>

@@ -13,6 +13,13 @@ import java.util.*;
 import static vlc.tracker.SqlSong.format;
 
 public class ExportInfo {
+    public static String getFormatedResult(int value){
+        if(value <= 10){
+            return "0" + value;
+        }
+        return String.valueOf(value);
+    }
+
     public static String formatTimeHH (String value) {
         int seconds = (int) Double.parseDouble(value);
 
@@ -20,9 +27,9 @@ public class ExportInfo {
 
         format.append((seconds / 3600));
         format.append(":");
-        format.append((seconds / 60) % 60);
+        format.append(getFormatedResult((seconds / 60) % 60));
         format.append(":");
-        format.append((seconds % 60));
+        format.append(getFormatedResult(seconds % 60));
 
         return format.toString();
     }
@@ -33,7 +40,7 @@ public class ExportInfo {
 
         format.append((seconds / 60) % 60);
         format.append(":");
-        format.append((seconds % 60));
+        format.append(getFormatedResult(seconds % 60));
 
         return format.toString();
     }
