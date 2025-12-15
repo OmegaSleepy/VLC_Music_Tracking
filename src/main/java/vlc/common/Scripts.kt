@@ -1,11 +1,13 @@
 package vlc.common
 
-import sql.Query
+import sql.SqlConnection
+import sql.query.Query
 import java.nio.file.Path
 
 fun createDBandTable(){
+    var con = SqlConnection(Path.of("credentials.txt"))
 
-    Query.getResult("use musicindex;" +
+    Query.fromString("use musicindex;" +
             "DROP TABLE if exists musicspy;" +
             "CREATE TABLE `musicspy` (\n" +
             "  `title` varchar(64) NOT NULL,\n" +
@@ -15,13 +17,15 @@ fun createDBandTable(){
             "  `length` int DEFAULT NULL,\n" +
             "  `timesSeen` int DEFAULT NULL,\n" +
             "  PRIMARY KEY (`title`)\n" +
-            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n")
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n",
+        con)
 
 }
 
 fun select(){
+    val con = SqlConnection(Path.of("credentials.txt"))
 
-    Query.getResult("SELECT * FROM musicindex.musicspy order by timesSeen desc;")
+    Query.fromString("SELECT * FROM musicindex.musicspy order by timesSeen desc;", con)
 }
 
 fun openVLC() {

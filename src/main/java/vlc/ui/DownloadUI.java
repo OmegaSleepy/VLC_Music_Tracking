@@ -1,12 +1,14 @@
 package vlc.ui;
 
-import sql.Log;
 import vlc.common.DownloadMusicKt;
 import vlc.common.PythonFileManagerKt;
 import vlc.common.ScriptsKt;
 
 import javax.swing.*;
 import java.util.Collections;
+
+import static log.LogFileHandler.*;
+import static log.Log.*;
 
 public class DownloadUI {
     private JTextField writeDownTheFullTextField;
@@ -49,7 +51,7 @@ public class DownloadUI {
             String url = writeDownTheFullTextField.getText();
 
             if (url.equals("write down the full URL")) {
-                Log.warn("The full URL is invalid!");
+                warn("The full URL is invalid!");
                 LastDownload.setText("Downloading failure! Invalid URL!");
                 DOWNLOADSENDTOTHEButton.setEnabled(true);
                 return;
@@ -72,7 +74,7 @@ public class DownloadUI {
                         get(); // rethrow exceptions from doInBackground
                         LastDownload.setText("Downloaded %s".formatted(url));
                     } catch (Exception ex) {
-                        Log.warn("Download failed: %s".formatted(ex.getMessage()));
+                        warn("Download failed: %s".formatted(ex.getMessage()));
                         LastDownload.setText("Downloading failure! %s".formatted(ex.getMessage()));
                     } finally {
                         DOWNLOADSENDTOTHEButton.setEnabled(true);
@@ -87,7 +89,7 @@ public class DownloadUI {
     private void downloadAlbum (String url) {
         var formatedUrl = getAlbumUrl(url);
 
-        Log.exec("Trying to download album with code %s".formatted(formatedUrl));
+        exec("Trying to download album with code %s".formatted(formatedUrl));
 
         DownloadMusicKt.runPython(
                 new String[]{
@@ -101,7 +103,7 @@ public class DownloadUI {
     private void downloadSingle (String url) {
         var formatedUrl = getSingleUrl(url);
 
-        Log.exec("Trying to download single with code %s".formatted(formatedUrl));
+        exec("Trying to download single with code %s".formatted(formatedUrl));
 
         DownloadMusicKt.runPython(
                 new String[] {
@@ -113,8 +115,8 @@ public class DownloadUI {
     }
 
     public static void main (String[] args) {
-        Log.MAX_LOGS = 8;
-        Log.cleanUp();
+        MAX_LOGS = 8;
+        cleanUp();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Music Downloader");

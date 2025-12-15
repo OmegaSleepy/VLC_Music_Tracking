@@ -1,8 +1,13 @@
 package vlc.tracker;
 
+import log.Log;
+import log.LogFileHandler;
 import sql.*;
+import sql.query.Query;
 import vlc.common.ScriptsKt;
 
+import java.nio.file.Path;
+import java.sql.SQLData;
 import java.util.ArrayList;
 
 import static vlc.tracker.Util.*;
@@ -15,11 +20,13 @@ public class Main {
 
     public static void addToDB (Song song, int time) {
 
+        var con = new SqlConnection(Path.of("credentials.txt"));
+
         if(isValid(song)) return;
 
         StringBuilder statement = new StringBuilder();
 
-        statement.append("insert into musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
+        statement.append("insert into musicindex.musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
                 quote(song.title),
                 quote(song.artist),
                 quote(song.album),
@@ -33,13 +40,16 @@ public class Main {
 
         statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
 
-        Query.getResult(statement.toString());
+        Query.fromString(statement.toString(), con);
 
         Log.exec("Logged song: %s".formatted(song));
+
+        con.closeConnection();
 
     }
 
     public static void addTime(Song song, double time){
+        var con = new SqlConnection(Path.of("credentials.txt"));
 
         if(isValid(song)) return;
 
@@ -50,20 +60,21 @@ public class Main {
 
         if(time < MINIMAL_ATTENTION) return;
 
-        String statement = "update musicSpy " +
+        String statement = "update musicIndex.musicSpy " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
                 "where title = %s;".formatted(quote(song.title));
-        Query.getResult(statement);
+        Query.fromString(statement, con);
+
+        con.closeConnection();
 
     }
 
     public static void main (String[] args) throws Exception {
 
         long start = System.nanoTime();
-        Query.getResult("use musicindex");
 
         Log.MAX_LOGS = 16;
-        Log.cleanUp();
+        LogFileHandler.cleanUp();
 
         Song previous = Song.EMPTY_SONG;
         Song current = Song.EMPTY_SONG;
@@ -84,6 +95,8 @@ public class Main {
                 ).isBlank()) Util.end(e);
 
                 ScriptsKt.openVLC();
+                
+                Thread.sleep(timeStep*timeStep/8);
             }
 
             if (!previous.equals(current)) {
@@ -106,7 +119,7 @@ public class Main {
 
         printSongs();
 
-        Script.end(start, System.nanoTime());
+        Quit.end(start, System.nanoTime());
 
     }
 

@@ -1,10 +1,15 @@
 package vlc.tracker;
 
-import sql.CrashUtil;
-import sql.Log;
-import sql.Query;
+import common.CrashUtil;
+import log.Log;
+import sql.SqlConnection;
+import sql.query.Query;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
+
+import static vlc.tracker.ExportInfo.saveSongsToHTML;
 
 public class Util {
 
@@ -32,9 +37,18 @@ public class Util {
     }
 
     public static void printSongs(){
-        Log.logSelect.accept(Query.getResult("SELECT * FROM musicindex.musicspy " +
+
+        SqlConnection connection = new SqlConnection(Path.of("credentials.txt"));
+
+        Log.logSelect.accept(Query.fromString("SELECT * FROM musicindex.musicspy " +
                 "where title != \"title\" and title is not null " +
-                "order by playtime desc;"));
+                "order by playtime desc;", connection));
+    }
+
+    public static void main (String[] args) throws IOException {
+        saveSongsToHTML();
     }
 
 }
+
+
