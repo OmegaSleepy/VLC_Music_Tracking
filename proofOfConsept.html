@@ -17,8 +17,10 @@
             text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
         }
         div {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            padding-bottom: 1cm;
+            padding: 20px;
         }
 
         table {
@@ -28,6 +30,7 @@
         table, th, td {
             border: 3px solid #3B8183;
             border-collapse: collapse;
+            box-shadow: 5px 5px 15px #0f172a55;
         }
         th, td {
             padding: 10px;
@@ -101,7 +104,11 @@
                 background-position: var(--s) 0,0 var(--s);
             }
         }
+
+
+
     </style>
+    <link rel="icon" href="vlc.ico" type="image/x-icon">
 </head>
 <body>
 <h1> VLC information</h1>
@@ -115,10 +122,10 @@
             <th> Total Time (hh:mm:ss)</th>
         </tr>
         <tr>
-            <td> 3.0.11</td>
-            <td> 2024-06-15</td>
-            <td> 150</td>
-            <td> 9:22:30</td>
+            <td> ${VLCVersion}</td>
+            <td> ${Date} </td>
+            <td> ${TotalSongs}</td>
+            <td> ${TotalTime}</td>
         </tr>
     </table>
 </div>

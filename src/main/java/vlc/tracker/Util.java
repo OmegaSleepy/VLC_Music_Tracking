@@ -7,6 +7,7 @@ import sql.query.Query;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static vlc.tracker.ExportInfo.saveSongsToHTML;
@@ -45,7 +46,7 @@ public class Util {
                 "order by playtime desc;", connection));
     }
 
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) throws IOException, SQLException {
         saveSongsToHTML();
     }
 

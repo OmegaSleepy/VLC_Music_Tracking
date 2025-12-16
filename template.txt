@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>VLC music export</title>
+    <link rel="icon" href="vlc.ico" type="image/x-icon">
     <style>
         body {
             font-family: "JetBrains Mono", sans-serif;
             margin: 0;
             padding: 0;
-            text-shadow: -1px -1px 0 #ffffff67, 1px -1px 0 #ffffff67, -1px 1px 0 #ffffff67, 1px 1px 0 #ffffff67;
         }
 
         h1 {
@@ -18,8 +18,10 @@
             text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
         }
         div {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            height: 10cm;
+            padding: 20px;
         }
 
         table {
@@ -29,6 +31,7 @@
         table, th, td {
             border: 3px solid #3B8183;
             border-collapse: collapse;
+            box-shadow: 5px 5px 15px #0f172a55;
         }
         th, td {
             padding: 10px;
@@ -102,10 +105,28 @@
                 background-position: var(--s) 0,0 var(--s);
             }
         }
+
     </style>
 </head>
 <body>
 <h1> VLC information</h1>
+
+<div>
+    <table>
+        <tr>
+            <th> VLC Version</th>
+            <th> Export Date</th>
+            <th> Total Songs</th>
+            <th> Total Time (hh:mm:ss)</th>
+        </tr>
+        <tr>
+            <td> ${VLCVersion}</td>
+            <td> ${Date} </td>
+            <td> ${TotalSongs}</td>
+            <td> ${TotalTime}</td>
+        </tr>
+    </table>
+</div>
 
 <div>
     <table id="MusicTable">

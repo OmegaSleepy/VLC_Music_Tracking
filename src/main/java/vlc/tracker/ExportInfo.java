@@ -5,16 +5,31 @@ import sql.SqlConnection;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static vlc.tracker.SqlSong.format;
 
+
 public class ExportInfo {
+
+    static int totalSongs = 0;
+    static int totalArtists = 0;
+
+    static int totalAlbums = 0;
+    static int totalTimesPlayed = 0; //TotalLength
+
+    static double averageTimesPlayed = 0; //AverageTimesSeen
+    static int totalTime = 0; //TotalPlaytime
+    static double averageTime = 0; //AveragePlaytime
+
+    static int totalLength = 0; //TotalTimesSeen
+    static double averageLength = 0; //AverageLength
+    
     public static String getFormatedResult(int value){
-        if(value <= 10){
+        if(value < 10){
             return "0" + value;
         }
         return String.valueOf(value);
@@ -45,8 +60,7 @@ public class ExportInfo {
         return format.toString();
     }
 
-    public static final Set<String> keys =  Set.of("${title}", "${artist}", "${album}", "${link}",  "${length}", "${times}", "${playtime}", "${formattedTime}");
-
+    public static final Set<String> keys =  Set.of("${title}", "${artist}", "${album}", "${link}", "${linkString}","${length}", "${times}", "${playtime}", "${formattedTime}");
 
     public static String buildFormat(Map<String, String> map) {
         String value =  format;
@@ -64,34 +78,31 @@ public class ExportInfo {
 
     }
 
-    public static void saveSongsToHTML() throws IOException {
+    public static void saveSongsToHTML() throws IOException, SQLException {
         Path path = Path.of("report.html");
 
         ArrayList<String> contents = new ArrayList<>(Files.readAllLines(Path.of("template.txt")));
 
-        SqlConnection connection = new SqlConnection(Path.of("credentials.txt"));
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        int totalSongs = 0;
-        int totalArtists = 0;
-        int totalAlbums = 0;
 
-        int totalTimesPlayed = 0; //TotalLength
-        double averageTimesPlayed = 0; //AverageTimesSeen
-
-        int totalTime = 0; //TotalPlaytime
-        double averageTime = 0; //AveragePlaytime
-
-        int totalLength = 0; //TotalTimesSeen
-        double averageLength = 0; //AverageLength
 
 
         try {
-            PreparedStatement statement = connection.connection.prepareStatement("" +
-                    "SELECT * FROM musicindex.musicspy " +
-                    "order by playtime desc;");
+            PreparedStatement statement = connection.prepareStatement(
+                    """
+                        SELECT * FROM musicindex.musicspy
+                        where title != "title" and artist not like "%Sān-Z%"
+                        order by playtime desc;
+                    """);
             ResultSet resultSet = statement.executeQuery();
 
-            for(;resultSet.next();){
+            while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 String artist = resultSet.getString("artist");
                 String album = resultSet.getString("album");
@@ -107,7 +118,7 @@ public class ExportInfo {
                 contents.add(song.toHTMLTable());
             }
 
-            statement = connection.connection.prepareStatement("""
+            statement = connection.prepareStatement("""
                     SELECT
                         COUNT(title) AS TotalTitles,
                         COUNT(DISTINCT artist) AS UniqueArtists,
@@ -123,7 +134,7 @@ public class ExportInfo {
 
             ResultSet resultSet2 = statement.executeQuery();
 
-            for(;resultSet2.next();){
+            while (resultSet2.next()) {
                 totalSongs = resultSet2.getInt("TotalTitles");
                 totalArtists = resultSet2.getInt("UniqueArtists");
                 totalAlbums = resultSet2.getInt("UniqueAlbums");
@@ -143,37 +154,25 @@ public class ExportInfo {
             throw new RuntimeException(e);
         }
 
-        int finalTotalSongs = totalSongs;
-        int finalTotalArtists = totalArtists;
-
-        int finalTotalAlbums = totalAlbums;
-        int finalTotalLength = totalLength;
-        int finalTotalTimesPlayed = totalTimesPlayed;
-        int finalTotalTime = totalTime;
-
         String values = buildFormat(new HashMap<>() {{
-            put("${title}", String.valueOf(finalTotalSongs));
-            put("${artist}", String.valueOf(finalTotalArtists));
-            put("${album}", String.valueOf(finalTotalAlbums));
+            put("${title}", String.valueOf(totalSongs));
+            put("${artist}", String.valueOf(totalArtists));
+            put("${album}", String.valueOf(totalAlbums));
 
-            put("${length}", formatTimeHH(String.valueOf(finalTotalLength)));
-            put("${times}", String.valueOf(finalTotalTimesPlayed));
-            put("${playtime}", String.valueOf(finalTotalTime));
+            put("${length}", formatTimeHH(String.valueOf(totalLength)));
+            put("${times}", String.valueOf(totalTimesPlayed));
+            put("${playtime}", String.valueOf(totalTime));
 
-            put("${formattedTime}", formatTimeHH(String.valueOf(finalTotalTime)));
+            put("${formattedTime}", formatTimeHH(String.valueOf(totalTime)));
         }});
 
         contents.add(values);
 
-        double finalAverageTimesPlayed = averageTimesPlayed;
-        double finalAverageLength = averageLength;
-        double finalAverageTime = averageTime;
-
         values = buildFormat(new HashMap<>() {{
-            put("${length}", formatTimeHH(String.valueOf(finalAverageLength)));
-            put("${times}", String.format(String.valueOf(finalAverageTimesPlayed)));
-            put("${playtime}", (String.valueOf(finalAverageTime)));
-            put("${formattedTime}", formatTimeHH(String.valueOf(finalAverageTime)));
+            put("${length}", formatTimeHH(String.valueOf(averageLength)));
+            put("${times}", String.format(String.valueOf(averageTimesPlayed)));
+            put("${playtime}", (String.valueOf(averageTime)));
+            put("${formattedTime}", formatTimeHH(String.valueOf(averageTime)));
         }});
 
         contents.add(values);
@@ -186,12 +185,60 @@ public class ExportInfo {
                 </body>
                 </html>""");
 
+        AtomicInteger totalTimeAtomic = new AtomicInteger(totalTime);
+        AtomicInteger totalSongsAtomic = new AtomicInteger(totalSongs);
+
+        StringBuilder html = new StringBuilder();
+
+        var map = getBestSongs();
+
+        contents.forEach(line -> {
+            line = line.replace("${TotalTime}",  formatTimeHH(String.valueOf(totalTimeAtomic.get())));
+            line =  line.replace("${TotalSongs}",  String.valueOf(totalSongsAtomic.get()));
+            line = line.replace("${Date}", Calendar.getInstance().getTime().toString());
+            line = line.replace("${VLCVersion}", "3.0.21 Vetinari");
+
+            for(String str : map.keySet()) {
+                line = line.replace(str, map.get(str));
+            }
+
+            html.append(line);
+        });
+
+
+
         try {
-            Files.write(path, contents);
+            Files.write(path, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    static HashMap<String, String> getBestSongs() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
+        PreparedStatement statement = connection.prepareStatement("""
+                SELECT sum(playtime) as `Total`, artist FROM musicindex.musicspy
+                group by artist
+                order by `Total` desc
+                """);
+        ResultSet resultSet = statement.executeQuery();
+
+        String value = "${TopI}";
+        String name = "${TopIValue}";
+
+        HashMap<String, String> map = new HashMap<>();
+
+        int i = 0;
+        while (resultSet.next()) {
+            map.put(name.replace("I", String.valueOf(i)),resultSet.getString("Total"));
+            map.put(value.replace("I", String.valueOf(i)),resultSet.getString("artist"));
+
+            i++;
+        }
+
+        return map;
 
     }
+
 }

@@ -12,6 +12,7 @@ record SqlSong (String title, String artist, String album, String link, String l
         value = value.replace("${artist}", artist);
         value = value.replace("${album}", album);
         value = value.replace("${link}", link);
+        value = value.replace("${linkString}", link.replace("https://www.youtube.com", "youtu.be"));
         value = value.replace("${length}", formatTimeMM(length));
         value = value.replace("${times}", times);
         value = value.replace("${playtime}", playtime);
@@ -25,7 +26,7 @@ record SqlSong (String title, String artist, String album, String link, String l
                     <td>${title}</td>
                     <td>${artist}</td>
                     <td>${album}</td>
-                    <td><a href = "${link}"> ${link} </a></td>
+                    <td><a href = "${link}"> ${linkString} </a></td>
                     <td>${length}</td>
                     <td>${times}</td>
                     <td>${playtime}</td>
