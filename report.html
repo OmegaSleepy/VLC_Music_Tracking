@@ -1,12 +1,12 @@
-<!DOCTYPE html><HTML lang="en"><head>    <meta charset="UTF-8">    <title>VLC music export</title>    <link rel="icon" href="vlc.ico" type="image/x-icon">    <style>        body {            font-family: "JetBrains Mono", sans-serif;            margin: 0;            padding: 0;        }        h1 {            text-align: center;            margin-top: 20px;            color: #ffffff;            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;        }        div {            display: flex;            justify-content: center;            align-items: center;            padding: 20px;        }        table {            background-image: linear-gradient(#aefddeaa, #aefceeaa);        }        table, th, td {            border: 3px solid #3B8183;            border-collapse: collapse;            box-shadow: 5px 5px 15px #0f172a55;        }        th, td {            padding: 10px;        }        @property --a{            syntax: '<angle>';            inherits: true;            initial-value: 0deg;        }        @property --p {            syntax: '<percentage>';            inherits: true;            initial-value: 0%;        }        @property --c1 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        @property --c2 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        html {            --s: 80px;            --_g: #0000, var(--c1) 2deg calc(var(--a) - 2deg),#0000 var(--a);            background:                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g))                    var(--c2);            background-size: calc(2*var(--s)) calc(2*var(--s));            animation: m 2s infinite alternate linear;        }        @keyframes m {            0%,15% {                --a: 135deg;                --p: 20%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            45%,50% {                --a: 90deg;                --p: 25%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            50.01%,55% {                --a: 90deg;                --p: 25%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }            85%,100% {                --a: 135deg;                --p: 20%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }        }    </style></head><body><h1> VLC information</h1><div>    <table>        <tr>            <th> VLC Version</th>            <th> Export Date</th>            <th> Total Songs</th>            <th> Total Time (hh:mm:ss)</th>        </tr>        <tr>            <td> 3.0.21 Vetinari</td>            <td> Tue Dec 16 22:31:06 EET 2025 </td>            <td> 196</td>            <td> 50:42:56</td>        </tr>    </table></div><div>    <table id="MusicTable">        <tr>            <th> Title</th>            <th> Artist</th>            <th> Album</th>            <th> Link</th>            <th> Length (mm:ss)</th>            <th> Times Played</th>            <th> Time (seconds) </th>            <th> Time (hh:mm:ss) </th>        </tr><tr>
+<!DOCTYPE html><HTML lang="en"><head>    <meta charset="UTF-8">    <title>VLC music export</title>    <link rel="icon" href="vlc.ico" type="image/x-icon">    <style>        body {            font-family: "JetBrains Mono", sans-serif;            margin: 0;            padding: 0;        }        h1 {            text-align: center;            margin-top: 20px;            color: #ffffff;            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;        }        div {            display: flex;            justify-content: center;            align-items: center;            padding: 20px;        }        table {            background-image: linear-gradient(#aefddeaa, #aefceeaa);        }        table, th, td {            border: 3px solid #3B8183;            border-collapse: collapse;            box-shadow: 5px 5px 15px #0f172a55;        }        th, td {            padding: 10px;        }        @property --a{            syntax: '<angle>';            inherits: true;            initial-value: 0deg;        }        @property --p {            syntax: '<percentage>';            inherits: true;            initial-value: 0%;        }        @property --c1 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        @property --c2 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        html {            --s: 80px;            --_g: #0000, var(--c1) 2deg calc(var(--a) - 2deg),#0000 var(--a);            background:                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g))                    var(--c2);            background-size: calc(2*var(--s)) calc(2*var(--s));            animation: m 2s infinite alternate linear;        }        @keyframes m {            0%,15% {                --a: 135deg;                --p: 20%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            45%,50% {                --a: 90deg;                --p: 25%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            50.01%,55% {                --a: 90deg;                --p: 25%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }            85%,100% {                --a: 135deg;                --p: 20%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }        }    </style></head><body><h1> VLC information</h1><div>    <table>        <tr>            <th> VLC Version</th>            <th> Export Date</th>            <th> Total Songs</th>            <th> Total Time (hh:mm:ss)</th>        </tr>        <tr>            <td> 3.0.21 Vetinari</td>            <td> Tue Dec 16 23:20:33 EET 2025 </td>            <td> 198</td>            <td> 51:18:44</td>        </tr>    </table></div><div>    <table id="MusicTable">        <tr>            <th> Title</th>            <th> Artist</th>            <th> Album</th>            <th> Link</th>            <th> Length (mm:ss)</th>            <th> Times Played</th>            <th> Time (seconds) </th>            <th> Time (hh:mm:ss) </th>        </tr><tr>
     <td>MANIFEST</td>
     <td>STARSET</td>
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=jPofvnz5lDI"> youtu.be/watch?v=jPofvnz5lDI </a></td>
     <td>4:27</td>
     <td>29</td>
-    <td>9622</td>
-    <td>2:40:22</td>
+    <td>10677</td>
+    <td>2:57:57</td>
 </tr>
 <tr>
     <td>WHERE THE SKIES END</td>
@@ -89,6 +89,16 @@
     <td>1:13:25</td>
 </tr>
 <tr>
+    <td>By Myself</td>
+    <td>Linkin Park</td>
+    <td>Hybrid Theory</td>
+    <td><a href = "https://www.youtube.com/watch?v=3vAaLjXKJJw"> youtu.be/watch?v=3vAaLjXKJJw </a></td>
+    <td>3:09</td>
+    <td>19</td>
+    <td>4191</td>
+    <td>1:09:51</td>
+</tr>
+<tr>
     <td>ECHO</td>
     <td>STARSET</td>
     <td>DIVISIONS</td>
@@ -97,16 +107,6 @@
     <td>19</td>
     <td>4161</td>
     <td>1:09:21</td>
-</tr>
-<tr>
-    <td>By Myself</td>
-    <td>Linkin Park</td>
-    <td>Hybrid Theory</td>
-    <td><a href = "https://www.youtube.com/watch?v=3vAaLjXKJJw"> youtu.be/watch?v=3vAaLjXKJJw </a></td>
-    <td>3:09</td>
-    <td>19</td>
-    <td>3821</td>
-    <td>1:03:41</td>
 </tr>
 <tr>
     <td>WAKING UP</td>
@@ -135,8 +135,8 @@
     <td><a href = "https://www.youtube.com/watch?v=Ablk0NUR1kU"> youtu.be/watch?v=Ablk0NUR1kU </a></td>
     <td>2:44</td>
     <td>18</td>
-    <td>3046</td>
-    <td>0:50:46</td>
+    <td>3206</td>
+    <td>0:53:26</td>
 </tr>
 <tr>
     <td>Cure for the Itch</td>
@@ -154,9 +154,9 @@
     <td>Meteora</td>
     <td><a href = "https://www.youtube.com/watch?v=u-IcadiJCrE"> youtu.be/watch?v=u-IcadiJCrE </a></td>
     <td>3:07</td>
-    <td>16</td>
-    <td>2918</td>
-    <td>0:48:38</td>
+    <td>17</td>
+    <td>2978</td>
+    <td>0:49:38</td>
 </tr>
 <tr>
     <td>BRAVE NEW WORLD</td>
@@ -174,9 +174,9 @@
     <td>Hybrid Theory</td>
     <td><a href = "https://www.youtube.com/watch?v=Kb49V5bAERc"> youtu.be/watch?v=Kb49V5bAERc </a></td>
     <td>3:29</td>
-    <td>10</td>
-    <td>2348</td>
-    <td>0:39:08</td>
+    <td>11</td>
+    <td>2393</td>
+    <td>0:39:53</td>
 </tr>
 <tr>
     <td>HEAD OVER HEELS</td>
@@ -259,6 +259,16 @@
     <td>0:31:48</td>
 </tr>
 <tr>
+    <td>Breaking the Habit</td>
+    <td>Linkin Park</td>
+    <td>Meteora</td>
+    <td><a href = "https://www.youtube.com/watch?v=_e7bqZGPyFI"> youtu.be/watch?v=_e7bqZGPyFI </a></td>
+    <td>3:16</td>
+    <td>13</td>
+    <td>1826</td>
+    <td>0:30:26</td>
+</tr>
+<tr>
     <td>TOKSIK</td>
     <td>STARSET</td>
     <td>SILOS</td>
@@ -299,14 +309,14 @@
     <td>0:29:56</td>
 </tr>
 <tr>
-    <td>Breaking the Habit</td>
+    <td>One Step Closer</td>
     <td>Linkin Park</td>
-    <td>Meteora</td>
-    <td><a href = "https://www.youtube.com/watch?v=_e7bqZGPyFI"> youtu.be/watch?v=_e7bqZGPyFI </a></td>
-    <td>3:16</td>
-    <td>10</td>
-    <td>1770</td>
-    <td>0:29:30</td>
+    <td>Hybrid Theory</td>
+    <td><a href = "https://www.youtube.com/watch?v=KwN_f0fTHoE"> youtu.be/watch?v=KwN_f0fTHoE </a></td>
+    <td>2:37</td>
+    <td>11</td>
+    <td>1750</td>
+    <td>0:29:10</td>
 </tr>
 <tr>
     <td>A BRIEF HISTORY OF THE FUTURE</td>
@@ -349,24 +359,14 @@
     <td>0:26:47</td>
 </tr>
 <tr>
-    <td>One Step Closer</td>
-    <td>Linkin Park</td>
-    <td>Hybrid Theory</td>
-    <td><a href = "https://www.youtube.com/watch?v=KwN_f0fTHoE"> youtu.be/watch?v=KwN_f0fTHoE </a></td>
-    <td>2:37</td>
-    <td>10</td>
-    <td>1598</td>
-    <td>0:26:38</td>
-</tr>
-<tr>
     <td>In the End</td>
     <td>Linkin Park</td>
     <td>Hybrid Theory</td>
     <td><a href = "https://www.youtube.com/watch?v=KFA1hM91ffo"> youtu.be/watch?v=KFA1hM91ffo </a></td>
     <td>3:36</td>
-    <td>8</td>
-    <td>1480</td>
-    <td>0:24:40</td>
+    <td>9</td>
+    <td>1508</td>
+    <td>0:25:08</td>
 </tr>
 <tr>
     <td>Antigravity</td>
@@ -377,6 +377,16 @@
     <td>4</td>
     <td>1446</td>
     <td>0:24:06</td>
+</tr>
+<tr>
+    <td>Points of Authority</td>
+    <td>Linkin Park</td>
+    <td>Hybrid Theory</td>
+    <td><a href = "https://www.youtube.com/watch?v=UtSsEfJerRg"> youtu.be/watch?v=UtSsEfJerRg </a></td>
+    <td>3:20</td>
+    <td>5</td>
+    <td>1364</td>
+    <td>0:22:44</td>
 </tr>
 <tr>
     <td>Lying from You</td>
@@ -467,16 +477,6 @@
     <td>9</td>
     <td>1173</td>
     <td>0:19:33</td>
-</tr>
-<tr>
-    <td>Points of Authority</td>
-    <td>Linkin Park</td>
-    <td>Hybrid Theory</td>
-    <td><a href = "https://www.youtube.com/watch?v=UtSsEfJerRg"> youtu.be/watch?v=UtSsEfJerRg </a></td>
-    <td>3:20</td>
-    <td>5</td>
-    <td>1169</td>
-    <td>0:19:29</td>
 </tr>
 <tr>
     <td>Frequency</td>
@@ -814,7 +814,7 @@
     <td>HORIZONS</td>
     <td><a href = "https://www.youtube.com/watch?v=ZntiHhT-izQ"> youtu.be/watch?v=ZntiHhT-izQ </a></td>
     <td>3:59</td>
-    <td>2</td>
+    <td>3</td>
     <td>466</td>
     <td>0:07:46</td>
 </tr>
@@ -1269,6 +1269,16 @@
     <td>0:03:30</td>
 </tr>
 <tr>
+    <td>INFECTED</td>
+    <td>STARSET</td>
+    <td>HORIZONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=iImwzIiL33Q"> youtu.be/watch?v=iImwzIiL33Q </a></td>
+    <td>3:08</td>
+    <td>2</td>
+    <td>210</td>
+    <td>0:03:30</td>
+</tr>
+<tr>
     <td>Without You</td>
     <td>Three Days Grace</td>
     <td>Life Starts Now</td>
@@ -1347,16 +1357,6 @@
     <td>2</td>
     <td>188</td>
     <td>0:03:08</td>
-</tr>
-<tr>
-    <td>INFECTED</td>
-    <td>STARSET</td>
-    <td>HORIZONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=iImwzIiL33Q"> youtu.be/watch?v=iImwzIiL33Q </a></td>
-    <td>3:08</td>
-    <td>2</td>
-    <td>183</td>
-    <td>0:03:03</td>
 </tr>
 <tr>
     <td>So What</td>
@@ -1709,6 +1709,16 @@
     <td>0:00:00</td>
 </tr>
 <tr>
+    <td>One More Light</td>
+    <td>Linkin Park</td>
+    <td>Papercuts</td>
+    <td><a href = "https://www.youtube.com/watch?v=Of7J7QLqmho"> youtu.be/watch?v=Of7J7QLqmho </a></td>
+    <td>4:15</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0:00:00</td>
+</tr>
+<tr>
     <td>Rise And Fall</td>
     <td>STARSET</td>
     <td>Transmissions</td>
@@ -1739,24 +1749,24 @@
     <td>0:00:00</td>
 </tr>
 <tr>
-    <td>196</td>
+    <td>198</td>
     <td>19</td>
     <td>36</td>
     <td><a href = "">  </a></td>
-    <td>12:15:13</td>
-    <td>897</td>
-    <td>182576</td>
-    <td>50:42:56</td>
+    <td>12:22:18</td>
+    <td>907</td>
+    <td>184724</td>
+    <td>51:18:44</td>
 </tr>
 <tr>
     <td></td>
     <td></td>
     <td></td>
     <td><a href = "">  </a></td>
-    <td>0:03:45</td>
-    <td>4.5765</td>
-    <td>931.5102</td>
-    <td>0:15:31</td>
+    <td>0:03:44</td>
+    <td>4.5808</td>
+    <td>932.9495</td>
+    <td>0:15:32</td>
 </tr>
     </table>
 
