@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>VLC music export</title>
-    <link rel="icon" href="vlc.ico" type="image/x-icon">
     <style>
+        :root {
+            --backgroundLight : #aefcee;
+            --backgroundDark  : #3B8183;
+            --accentLight     : #aefdde;
+            --accentDark      : #0f172a;
+            --shadow: color-mix(in srgb, var(--accentDark) 73%, transparent);
+            --box-fill: color-mix(in srgb, var(--accentLight) 87%, transparent);
+        }
+
         body {
             font-family: "JetBrains Mono", sans-serif;
             margin: 0;
@@ -14,9 +22,14 @@
         h1 {
             text-align: center;
             margin-top: 20px;
-            color: #ffffff;
-            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+            color: var(--backgroundLight);
+            text-shadow:
+                    -2px -2px 0 var(--accentDark),
+                    2px -2px 0 var(--accentDark),
+                    -2px 2px 0 var(--accentDark),
+                    2px 2px 0 var(--accentDark);
         }
+
         div {
             display: flex;
             justify-content: center;
@@ -25,13 +38,13 @@
         }
 
         table {
-            background-image: linear-gradient(#aefddeaa, #aefceeaa);
+            background: var(--box-fill);
         }
 
         table, th, td {
-            border: 3px solid #3B8183;
+            border: 3px solid var(--backgroundDark);
             border-collapse: collapse;
-            box-shadow: 5px 5px 15px #0f172a55;
+            box-shadow: 5px 5px 15px var(--shadow);
         }
         th, td {
             padding: 10px;
@@ -79,34 +92,37 @@
             0%,15% {
                 --a: 135deg;
                 --p: 20%;
-                --c1: #3B8183;
-                --c2: #aefcee;
+                --c1: var(--backgroundDark);
+                --c2: var(--backgroundLight);
                 background-position: 0 0,var(--s) var(--s);
             }
             45%,50% {
                 --a: 90deg;
                 --p: 25%;
-                --c1: #3B8183;
-                --c2: #aefcee;
+                --c1: var(--backgroundDark);
+                --c2: var(--backgroundLight);
                 background-position: 0 0,var(--s) var(--s);
             }
             50.01%,55% {
                 --a: 90deg;
                 --p: 25%;
-                --c2: #3B8183;
-                --c1: #aefcee;
+                --c2: var(--backgroundDark);
+                --c1: var(--backgroundLight);
                 background-position: var(--s) 0,0 var(--s);
             }
             85%,100% {
                 --a: 135deg;
                 --p: 20%;
-                --c2: #3B8183;
-                --c1: #aefcee;
+                --c2: var(--backgroundDark);
+                --c1: var(--backgroundLight);
                 background-position: var(--s) 0,0 var(--s);
             }
         }
 
+
+
     </style>
+    <link rel="icon" href="vlc.ico" type="image/x-icon">
 </head>
 <body>
 <h1> VLC information</h1>
@@ -121,9 +137,9 @@
         </tr>
         <tr>
             <td> 3.0.21 Vetinari</td>
-            <td> Wed Dec 17 16:32:13 EET 2025 </td>
-            <td> 198</td>
-            <td> 51:18:44</td>
+            <td> Thu Dec 18 00:38:33 EET 2025 </td>
+            <td> 215</td>
+            <td> 55:12:41</td>
         </tr>
     </table>
 </div>
@@ -145,9 +161,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=jPofvnz5lDI"> youtu.be/watch?v=jPofvnz5lDI </a></td>
     <td>4:27</td>
-    <td>29</td>
-    <td>10677</td>
-    <td>2:57:57</td>
+    <td>32</td>
+    <td>11614</td>
+    <td>3:13:34</td>
 </tr>
 <tr>
     <td>WHERE THE SKIES END</td>
@@ -155,9 +171,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=jocoQvSdy84"> youtu.be/watch?v=jocoQvSdy84 </a></td>
     <td>6:33</td>
-    <td>27</td>
-    <td>9414</td>
-    <td>2:36:54</td>
+    <td>29</td>
+    <td>10180</td>
+    <td>2:49:40</td>
 </tr>
 <tr>
     <td>PERFECT MACHINE</td>
@@ -165,9 +181,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=XM9H2IQVG2U"> youtu.be/watch?v=XM9H2IQVG2U </a></td>
     <td>5:23</td>
-    <td>22</td>
-    <td>6922</td>
-    <td>1:55:22</td>
+    <td>24</td>
+    <td>7550</td>
+    <td>2:05:50</td>
 </tr>
 <tr>
     <td>SOLSTICE</td>
@@ -175,9 +191,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=Dt25fEpLseM"> youtu.be/watch?v=Dt25fEpLseM </a></td>
     <td>5:41</td>
-    <td>20</td>
-    <td>6318</td>
-    <td>1:45:18</td>
+    <td>22</td>
+    <td>6733</td>
+    <td>1:52:13</td>
 </tr>
 <tr>
     <td>DIVING BELL</td>
@@ -195,9 +211,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=R_2wN_Fs794"> youtu.be/watch?v=R_2wN_Fs794 </a></td>
     <td>5:12</td>
-    <td>18</td>
-    <td>5733</td>
-    <td>1:35:33</td>
+    <td>19</td>
+    <td>6037</td>
+    <td>1:40:37</td>
 </tr>
 <tr>
     <td>OTHER WORLDS THAN THESE</td>
@@ -205,9 +221,9 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=jiXLe2TgR20"> youtu.be/watch?v=jiXLe2TgR20 </a></td>
     <td>4:18</td>
-    <td>22</td>
-    <td>5529</td>
-    <td>1:32:09</td>
+    <td>24</td>
+    <td>6032</td>
+    <td>1:40:32</td>
 </tr>
 <tr>
     <td>STRATOSPHERE</td>
@@ -215,19 +231,19 @@
     <td>DIVISIONS</td>
     <td><a href = "https://www.youtube.com/watch?v=-vH1S16mLrA"> youtu.be/watch?v=-vH1S16mLrA </a></td>
     <td>4:17</td>
-    <td>24</td>
-    <td>5341</td>
-    <td>1:29:01</td>
+    <td>26</td>
+    <td>5841</td>
+    <td>1:37:21</td>
 </tr>
 <tr>
-    <td>TRIALS</td>
+    <td>ECHO</td>
     <td>STARSET</td>
     <td>DIVISIONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=Wfs-pP0dQ3c"> youtu.be/watch?v=Wfs-pP0dQ3c </a></td>
-    <td>4:18</td>
-    <td>20</td>
-    <td>4405</td>
-    <td>1:13:25</td>
+    <td><a href = "https://www.youtube.com/watch?v=c87I0v6PNW0"> youtu.be/watch?v=c87I0v6PNW0 </a></td>
+    <td>3:36</td>
+    <td>21</td>
+    <td>4581</td>
+    <td>1:16:21</td>
 </tr>
 <tr>
     <td>By Myself</td>
@@ -236,18 +252,28 @@
     <td><a href = "https://www.youtube.com/watch?v=3vAaLjXKJJw"> youtu.be/watch?v=3vAaLjXKJJw </a></td>
     <td>3:09</td>
     <td>19</td>
-    <td>4191</td>
-    <td>1:09:51</td>
+    <td>4560</td>
+    <td>1:16:00</td>
 </tr>
 <tr>
-    <td>ECHO</td>
+    <td>TRIALS</td>
     <td>STARSET</td>
     <td>DIVISIONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=c87I0v6PNW0"> youtu.be/watch?v=c87I0v6PNW0 </a></td>
+    <td><a href = "https://www.youtube.com/watch?v=Wfs-pP0dQ3c"> youtu.be/watch?v=Wfs-pP0dQ3c </a></td>
+    <td>4:18</td>
+    <td>21</td>
+    <td>4405</td>
+    <td>1:13:25</td>
+</tr>
+<tr>
+    <td>FAULTLINE</td>
+    <td>STARSET</td>
+    <td>DIVISIONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=il8GouWoG-M"> youtu.be/watch?v=il8GouWoG-M </a></td>
     <td>3:36</td>
-    <td>19</td>
-    <td>4161</td>
-    <td>1:09:21</td>
+    <td>22</td>
+    <td>4063</td>
+    <td>1:07:43</td>
 </tr>
 <tr>
     <td>WAKING UP</td>
@@ -260,24 +286,14 @@
     <td>1:03:27</td>
 </tr>
 <tr>
-    <td>FAULTLINE</td>
-    <td>STARSET</td>
-    <td>DIVISIONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=il8GouWoG-M"> youtu.be/watch?v=il8GouWoG-M </a></td>
-    <td>3:36</td>
-    <td>20</td>
-    <td>3643</td>
-    <td>1:00:43</td>
-</tr>
-<tr>
     <td>Hit the Floor</td>
     <td>Linkin Park</td>
     <td>Meteora</td>
     <td><a href = "https://www.youtube.com/watch?v=Ablk0NUR1kU"> youtu.be/watch?v=Ablk0NUR1kU </a></td>
     <td>2:44</td>
     <td>18</td>
-    <td>3206</td>
-    <td>0:53:26</td>
+    <td>3365</td>
+    <td>0:56:05</td>
 </tr>
 <tr>
     <td>Cure for the Itch</td>
@@ -285,9 +301,9 @@
     <td>Hybrid Theory</td>
     <td><a href = "https://www.youtube.com/watch?v=WZQz2oxy-V8"> youtu.be/watch?v=WZQz2oxy-V8 </a></td>
     <td>2:37</td>
-    <td>18</td>
-    <td>3010</td>
-    <td>0:50:10</td>
+    <td>19</td>
+    <td>3163</td>
+    <td>0:52:43</td>
 </tr>
 <tr>
     <td>Numb</td>
@@ -306,8 +322,8 @@
     <td><a href = "https://www.youtube.com/watch?v=D3OWHf8ZbII"> youtu.be/watch?v=D3OWHf8ZbII </a></td>
     <td>4:24</td>
     <td>9</td>
-    <td>2717</td>
-    <td>0:45:17</td>
+    <td>2769</td>
+    <td>0:46:09</td>
 </tr>
 <tr>
     <td>Crawling</td>
@@ -316,8 +332,8 @@
     <td><a href = "https://www.youtube.com/watch?v=Kb49V5bAERc"> youtu.be/watch?v=Kb49V5bAERc </a></td>
     <td>3:29</td>
     <td>11</td>
-    <td>2393</td>
-    <td>0:39:53</td>
+    <td>2597</td>
+    <td>0:43:17</td>
 </tr>
 <tr>
     <td>HEAD OVER HEELS</td>
@@ -370,6 +386,16 @@
     <td>0:33:54</td>
 </tr>
 <tr>
+    <td>A BRIEF HISTORY OF THE FUTURE</td>
+    <td>STARSET</td>
+    <td>DIVISIONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=vKdiqVHRatA"> youtu.be/watch?v=vKdiqVHRatA </a></td>
+    <td>1:37</td>
+    <td>23</td>
+    <td>2008</td>
+    <td>0:33:28</td>
+</tr>
+<tr>
     <td>SWAY</td>
     <td>STARSET</td>
     <td>SILOS</td>
@@ -398,6 +424,16 @@
     <td>7</td>
     <td>1908</td>
     <td>0:31:48</td>
+</tr>
+<tr>
+    <td>One Step Closer</td>
+    <td>Linkin Park</td>
+    <td>Hybrid Theory</td>
+    <td><a href = "https://www.youtube.com/watch?v=KwN_f0fTHoE"> youtu.be/watch?v=KwN_f0fTHoE </a></td>
+    <td>2:37</td>
+    <td>12</td>
+    <td>1901</td>
+    <td>0:31:41</td>
 </tr>
 <tr>
     <td>Breaking the Habit</td>
@@ -450,26 +486,6 @@
     <td>0:29:56</td>
 </tr>
 <tr>
-    <td>One Step Closer</td>
-    <td>Linkin Park</td>
-    <td>Hybrid Theory</td>
-    <td><a href = "https://www.youtube.com/watch?v=KwN_f0fTHoE"> youtu.be/watch?v=KwN_f0fTHoE </a></td>
-    <td>2:37</td>
-    <td>11</td>
-    <td>1750</td>
-    <td>0:29:10</td>
-</tr>
-<tr>
-    <td>A BRIEF HISTORY OF THE FUTURE</td>
-    <td>STARSET</td>
-    <td>DIVISIONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=vKdiqVHRatA"> youtu.be/watch?v=vKdiqVHRatA </a></td>
-    <td>1:37</td>
-    <td>20</td>
-    <td>1723</td>
-    <td>0:28:43</td>
-</tr>
-<tr>
     <td>Forgotten</td>
     <td>Linkin Park</td>
     <td>Hybrid Theory</td>
@@ -500,6 +516,16 @@
     <td>0:26:47</td>
 </tr>
 <tr>
+    <td>Points of Authority</td>
+    <td>Linkin Park</td>
+    <td>Hybrid Theory</td>
+    <td><a href = "https://www.youtube.com/watch?v=UtSsEfJerRg"> youtu.be/watch?v=UtSsEfJerRg </a></td>
+    <td>3:20</td>
+    <td>7</td>
+    <td>1559</td>
+    <td>0:25:59</td>
+</tr>
+<tr>
     <td>In the End</td>
     <td>Linkin Park</td>
     <td>Hybrid Theory</td>
@@ -520,16 +546,6 @@
     <td>0:24:06</td>
 </tr>
 <tr>
-    <td>Points of Authority</td>
-    <td>Linkin Park</td>
-    <td>Hybrid Theory</td>
-    <td><a href = "https://www.youtube.com/watch?v=UtSsEfJerRg"> youtu.be/watch?v=UtSsEfJerRg </a></td>
-    <td>3:20</td>
-    <td>5</td>
-    <td>1364</td>
-    <td>0:22:44</td>
-</tr>
-<tr>
     <td>Lying from You</td>
     <td>Linkin Park</td>
     <td>Meteora</td>
@@ -548,6 +564,16 @@
     <td>7</td>
     <td>1345</td>
     <td>0:22:25</td>
+</tr>
+<tr>
+    <td>Frequency</td>
+    <td>STARSET</td>
+    <td>Vessels</td>
+    <td><a href = "https://www.youtube.com/watch?v=9Vd9ZaHy7jM"> youtu.be/watch?v=9Vd9ZaHy7jM </a></td>
+    <td>4:41</td>
+    <td>5</td>
+    <td>1341</td>
+    <td>0:22:21</td>
 </tr>
 <tr>
     <td>Pushing Me Away</td>
@@ -620,14 +646,34 @@
     <td>0:19:33</td>
 </tr>
 <tr>
-    <td>Frequency</td>
-    <td>STARSET</td>
-    <td>Vessels</td>
-    <td><a href = "https://www.youtube.com/watch?v=9Vd9ZaHy7jM"> youtu.be/watch?v=9Vd9ZaHy7jM </a></td>
-    <td>4:41</td>
-    <td>4</td>
-    <td>1099</td>
-    <td>0:18:19</td>
+    <td>Let It Die</td>
+    <td>Three Days Grace</td>
+    <td>One-X</td>
+    <td><a href = "https://www.youtube.com/watch?v=7Zm3ZIsFZkg"> youtu.be/watch?v=7Zm3ZIsFZkg </a></td>
+    <td>3:09</td>
+    <td>5</td>
+    <td>1165</td>
+    <td>0:19:25</td>
+</tr>
+<tr>
+    <td>Faint</td>
+    <td>Linkin Park</td>
+    <td>Meteora</td>
+    <td><a href = "https://www.youtube.com/watch?v=yOW7Eh81Gto"> youtu.be/watch?v=yOW7Eh81Gto </a></td>
+    <td>2:42</td>
+    <td>7</td>
+    <td>1104</td>
+    <td>0:18:24</td>
+</tr>
+<tr>
+    <td>Don't Stay</td>
+    <td>Linkin Park</td>
+    <td>Meteora</td>
+    <td><a href = "https://www.youtube.com/watch?v=O1WAuqn9t0o"> youtu.be/watch?v=O1WAuqn9t0o </a></td>
+    <td>3:07</td>
+    <td>7</td>
+    <td>1098</td>
+    <td>0:18:18</td>
 </tr>
 <tr>
     <td>Somewhere I Belong</td>
@@ -640,6 +686,26 @@
     <td>0:17:21</td>
 </tr>
 <tr>
+    <td>Bringing It Down</td>
+    <td>STARSET</td>
+    <td>Vessels</td>
+    <td><a href = "https://www.youtube.com/watch?v=0oR44c5dMDM"> youtu.be/watch?v=0oR44c5dMDM </a></td>
+    <td>5:48</td>
+    <td>5</td>
+    <td>1014</td>
+    <td>0:16:54</td>
+</tr>
+<tr>
+    <td>Carnivore</td>
+    <td>STARSET</td>
+    <td>Transmissions</td>
+    <td><a href = "https://www.youtube.com/watch?v=2IHNBjd3nBs"> youtu.be/watch?v=2IHNBjd3nBs </a></td>
+    <td>4:22</td>
+    <td>4</td>
+    <td>1000</td>
+    <td>0:16:40</td>
+</tr>
+<tr>
     <td>Session</td>
     <td>Linkin Park</td>
     <td>Meteora</td>
@@ -648,16 +714,6 @@
     <td>8</td>
     <td>981</td>
     <td>0:16:21</td>
-</tr>
-<tr>
-    <td>Let It Die</td>
-    <td>Three Days Grace</td>
-    <td>One-X</td>
-    <td><a href = "https://www.youtube.com/watch?v=7Zm3ZIsFZkg"> youtu.be/watch?v=7Zm3ZIsFZkg </a></td>
-    <td>3:09</td>
-    <td>4</td>
-    <td>980</td>
-    <td>0:16:20</td>
 </tr>
 <tr>
     <td>Telescope</td>
@@ -670,24 +726,14 @@
     <td>0:16:05</td>
 </tr>
 <tr>
-    <td>Faint</td>
-    <td>Linkin Park</td>
-    <td>Meteora</td>
-    <td><a href = "https://www.youtube.com/watch?v=yOW7Eh81Gto"> youtu.be/watch?v=yOW7Eh81Gto </a></td>
-    <td>2:42</td>
-    <td>6</td>
-    <td>946</td>
-    <td>0:15:46</td>
-</tr>
-<tr>
-    <td>Don't Stay</td>
-    <td>Linkin Park</td>
-    <td>Meteora</td>
-    <td><a href = "https://www.youtube.com/watch?v=O1WAuqn9t0o"> youtu.be/watch?v=O1WAuqn9t0o </a></td>
-    <td>3:07</td>
-    <td>5</td>
-    <td>915</td>
-    <td>0:15:15</td>
+    <td>What Are You Waiting For</td>
+    <td>Disturbed</td>
+    <td>Immortalized</td>
+    <td><a href = "https://www.youtube.com/watch?v=JoUqSdRSjBI"> youtu.be/watch?v=JoUqSdRSjBI </a></td>
+    <td>4:03</td>
+    <td>3</td>
+    <td>951</td>
+    <td>0:15:51</td>
 </tr>
 <tr>
     <td>at his altar</td>
@@ -708,6 +754,16 @@
     <td>5</td>
     <td>880</td>
     <td>0:14:40</td>
+</tr>
+<tr>
+    <td>ICARUS</td>
+    <td>STARSET</td>
+    <td>HORIZONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=lV04KP1jY0M"> youtu.be/watch?v=lV04KP1jY0M </a></td>
+    <td>4:49</td>
+    <td>3</td>
+    <td>846</td>
+    <td>0:14:06</td>
 </tr>
 <tr>
     <td>OTHERWORLDLY</td>
@@ -750,6 +806,16 @@
     <td>0:12:39</td>
 </tr>
 <tr>
+    <td>THE BREACH</td>
+    <td>STARSET</td>
+    <td>HORIZONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=3xhpkdf0Vqk"> youtu.be/watch?v=3xhpkdf0Vqk </a></td>
+    <td>4:20</td>
+    <td>3</td>
+    <td>757</td>
+    <td>0:12:37</td>
+</tr>
+<tr>
     <td>Gravity Of You</td>
     <td>STARSET</td>
     <td>Vessels</td>
@@ -760,16 +826,6 @@
     <td>0:12:33</td>
 </tr>
 <tr>
-    <td>Carnivore</td>
-    <td>STARSET</td>
-    <td>Transmissions</td>
-    <td><a href = "https://www.youtube.com/watch?v=2IHNBjd3nBs"> youtu.be/watch?v=2IHNBjd3nBs </a></td>
-    <td>4:22</td>
-    <td>3</td>
-    <td>745</td>
-    <td>0:12:25</td>
-</tr>
-<tr>
     <td>EARTHRISE</td>
     <td>STARSET</td>
     <td>HORIZONS</td>
@@ -778,16 +834,6 @@
     <td>4</td>
     <td>720</td>
     <td>0:12:00</td>
-</tr>
-<tr>
-    <td>What Are You Waiting For</td>
-    <td>Disturbed</td>
-    <td>Immortalized</td>
-    <td><a href = "https://www.youtube.com/watch?v=JoUqSdRSjBI"> youtu.be/watch?v=JoUqSdRSjBI </a></td>
-    <td>4:03</td>
-    <td>2</td>
-    <td>714</td>
-    <td>0:11:54</td>
 </tr>
 <tr>
     <td>the antihero's journey</td>
@@ -810,14 +856,34 @@
     <td>0:11:31</td>
 </tr>
 <tr>
-    <td>Bringing It Down</td>
+    <td>Telepathic (Acoustic Version)</td>
     <td>STARSET</td>
-    <td>Vessels</td>
-    <td><a href = "https://www.youtube.com/watch?v=0oR44c5dMDM"> youtu.be/watch?v=0oR44c5dMDM </a></td>
-    <td>5:48</td>
-    <td>4</td>
-    <td>676</td>
-    <td>0:11:16</td>
+    <td>Vessels 2.0</td>
+    <td><a href = "https://www.youtube.com/watch?v=3CJzN8L1TyQ"> youtu.be/watch?v=3CJzN8L1TyQ </a></td>
+    <td>3:51</td>
+    <td>3</td>
+    <td>673</td>
+    <td>0:11:13</td>
+</tr>
+<tr>
+    <td>Dark On Me</td>
+    <td>STARSET</td>
+    <td>Transmissions</td>
+    <td><a href = "https://www.youtube.com/watch?v=XnYURSlYlvc"> youtu.be/watch?v=XnYURSlYlvc </a></td>
+    <td>5:38</td>
+    <td>1</td>
+    <td>658</td>
+    <td>0:10:58</td>
+</tr>
+<tr>
+    <td>It Has Begun</td>
+    <td>STARSET</td>
+    <td>Transmissions</td>
+    <td><a href = "https://www.youtube.com/watch?v=JmFVg84TbdI"> youtu.be/watch?v=JmFVg84TbdI </a></td>
+    <td>5:16</td>
+    <td>3</td>
+    <td>648</td>
+    <td>0:10:48</td>
 </tr>
 <tr>
     <td>Everglow</td>
@@ -830,11 +896,11 @@
     <td>0:10:32</td>
 </tr>
 <tr>
-    <td>It Has Begun</td>
+    <td>DIE FOR YOU</td>
     <td>STARSET</td>
-    <td>Transmissions</td>
-    <td><a href = "https://www.youtube.com/watch?v=JmFVg84TbdI"> youtu.be/watch?v=JmFVg84TbdI </a></td>
-    <td>5:16</td>
+    <td>Vessels</td>
+    <td><a href = "https://www.youtube.com/watch?v=bntcMIMPS5k"> youtu.be/watch?v=bntcMIMPS5k </a></td>
+    <td>5:17</td>
     <td>2</td>
     <td>617</td>
     <td>0:10:17</td>
@@ -848,6 +914,16 @@
     <td>3</td>
     <td>612</td>
     <td>0:10:12</td>
+</tr>
+<tr>
+    <td>SYMBIOTIC</td>
+    <td>STARSET</td>
+    <td>HORIZONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=7C2WlRJ-L5k"> youtu.be/watch?v=7C2WlRJ-L5k </a></td>
+    <td>3:23</td>
+    <td>3</td>
+    <td>594</td>
+    <td>0:09:54</td>
 </tr>
 <tr>
     <td>praesens</td>
@@ -870,14 +946,14 @@
     <td>0:09:49</td>
 </tr>
 <tr>
-    <td>ICARUS</td>
+    <td>Let It Die (Acoustic)</td>
     <td>STARSET</td>
-    <td>HORIZONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=lV04KP1jY0M"> youtu.be/watch?v=lV04KP1jY0M </a></td>
-    <td>4:49</td>
-    <td>2</td>
-    <td>565</td>
-    <td>0:09:25</td>
+    <td>Transmissions</td>
+    <td><a href = "https://www.youtube.com/watch?v=qgrYNroBbak"> youtu.be/watch?v=qgrYNroBbak </a></td>
+    <td>3:15</td>
+    <td>3</td>
+    <td>571</td>
+    <td>0:09:31</td>
 </tr>
 <tr>
     <td>Starlight (Acoustic Version)</td>
@@ -930,14 +1006,24 @@
     <td>0:08:40</td>
 </tr>
 <tr>
-    <td>THE BREACH</td>
-    <td>STARSET</td>
-    <td>HORIZONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=3xhpkdf0Vqk"> youtu.be/watch?v=3xhpkdf0Vqk </a></td>
+    <td>Home</td>
+    <td>Three Days Grace</td>
+    <td>Three Days Grace</td>
+    <td><a href = "https://www.youtube.com/watch?v=6Xu_FG23xXY"> youtu.be/watch?v=6Xu_FG23xXY </a></td>
     <td>4:20</td>
     <td>2</td>
-    <td>505</td>
-    <td>0:08:25</td>
+    <td>509</td>
+    <td>0:08:29</td>
+</tr>
+<tr>
+    <td>The Light</td>
+    <td>Disturbed</td>
+    <td>Immortalized</td>
+    <td><a href = "https://www.youtube.com/watch?v=buaJabSblAU"> youtu.be/watch?v=buaJabSblAU </a></td>
+    <td>4:16</td>
+    <td>2</td>
+    <td>500</td>
+    <td>0:08:20</td>
 </tr>
 <tr>
     <td>Unbecoming</td>
@@ -945,7 +1031,7 @@
     <td>Vessels</td>
     <td><a href = "https://www.youtube.com/watch?v=H23tJk5zGG0"> youtu.be/watch?v=H23tJk5zGG0 </a></td>
     <td>4:10</td>
-    <td>2</td>
+    <td>3</td>
     <td>488</td>
     <td>0:08:08</td>
 </tr>
@@ -958,6 +1044,16 @@
     <td>3</td>
     <td>466</td>
     <td>0:07:46</td>
+</tr>
+<tr>
+    <td>Open Your Eyes</td>
+    <td>Disturbed</td>
+    <td>Immortalized</td>
+    <td><a href = "https://www.youtube.com/watch?v=mg5UEWBfOHM"> youtu.be/watch?v=mg5UEWBfOHM </a></td>
+    <td>3:57</td>
+    <td>1</td>
+    <td>461</td>
+    <td>0:07:41</td>
 </tr>
 <tr>
     <td>My Demons (Synchronice Remix)</td>
@@ -978,16 +1074,6 @@
     <td>2</td>
     <td>450</td>
     <td>0:07:30</td>
-</tr>
-<tr>
-    <td>Telepathic (Acoustic Version)</td>
-    <td>STARSET</td>
-    <td>Vessels 2.0</td>
-    <td><a href = "https://www.youtube.com/watch?v=3CJzN8L1TyQ"> youtu.be/watch?v=3CJzN8L1TyQ </a></td>
-    <td>3:51</td>
-    <td>2</td>
-    <td>449</td>
-    <td>0:07:29</td>
 </tr>
 <tr>
     <td>Telepathic (Not Your Dope Remix)</td>
@@ -1030,22 +1116,22 @@
     <td>0:06:41</td>
 </tr>
 <tr>
-    <td>SYMBIOTIC</td>
+    <td>INFECTED</td>
     <td>STARSET</td>
     <td>HORIZONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=7C2WlRJ-L5k"> youtu.be/watch?v=7C2WlRJ-L5k </a></td>
-    <td>3:23</td>
-    <td>2</td>
-    <td>396</td>
-    <td>0:06:36</td>
+    <td><a href = "https://www.youtube.com/watch?v=iImwzIiL33Q"> youtu.be/watch?v=iImwzIiL33Q </a></td>
+    <td>3:08</td>
+    <td>3</td>
+    <td>393</td>
+    <td>0:06:33</td>
 </tr>
 <tr>
-    <td>Let It Die (Acoustic)</td>
-    <td>STARSET</td>
-    <td>Transmissions</td>
-    <td><a href = "https://www.youtube.com/watch?v=qgrYNroBbak"> youtu.be/watch?v=qgrYNroBbak </a></td>
-    <td>3:15</td>
-    <td>2</td>
+    <td>Land of Confusion</td>
+    <td>Disturbed</td>
+    <td>Ten Thousand Fists</td>
+    <td><a href = "https://www.youtube.com/watch?v=3wtqy_dKDVM"> youtu.be/watch?v=3wtqy_dKDVM </a></td>
+    <td>4:47</td>
+    <td>3</td>
     <td>381</td>
     <td>0:06:21</td>
 </tr>
@@ -1060,24 +1146,34 @@
     <td>0:06:15</td>
 </tr>
 <tr>
-    <td>Dark On Me</td>
-    <td>STARSET</td>
-    <td>Transmissions</td>
-    <td><a href = "https://www.youtube.com/watch?v=XnYURSlYlvc"> youtu.be/watch?v=XnYURSlYlvc </a></td>
-    <td>5:38</td>
-    <td>1</td>
-    <td>329</td>
-    <td>0:05:29</td>
+    <td>Droppin' Plates</td>
+    <td>Disturbed</td>
+    <td>The Sickness</td>
+    <td><a href = "https://www.youtube.com/watch?v=oHFru-YAMTs"> youtu.be/watch?v=oHFru-YAMTs </a></td>
+    <td>3:48</td>
+    <td>2</td>
+    <td>351</td>
+    <td>0:05:51</td>
 </tr>
 <tr>
-    <td>DIE FOR YOU</td>
-    <td>STARSET</td>
-    <td>Vessels</td>
-    <td><a href = "https://www.youtube.com/watch?v=bntcMIMPS5k"> youtu.be/watch?v=bntcMIMPS5k </a></td>
-    <td>5:17</td>
-    <td>1</td>
-    <td>308</td>
-    <td>0:05:08</td>
+    <td>Already Gone</td>
+    <td>Disturbed</td>
+    <td>Evolution</td>
+    <td><a href = "https://www.youtube.com/watch?v=qU9lK0pXWas"> youtu.be/watch?v=qU9lK0pXWas </a></td>
+    <td>4:28</td>
+    <td>2</td>
+    <td>346</td>
+    <td>0:05:46</td>
+</tr>
+<tr>
+    <td>Chasing The First Time</td>
+    <td>Three Days Grace</td>
+    <td>Outsider</td>
+    <td><a href = "https://www.youtube.com/watch?v=Kt6llBGD4k8"> youtu.be/watch?v=Kt6llBGD4k8 </a></td>
+    <td>2:55</td>
+    <td>2</td>
+    <td>310</td>
+    <td>0:05:10</td>
 </tr>
 <tr>
     <td>THIS ENDLESS ENDEAVOR</td>
@@ -1170,14 +1266,34 @@
     <td>0:04:38</td>
 </tr>
 <tr>
+    <td>The Night</td>
+    <td>Disturbed</td>
+    <td>Indestructible</td>
+    <td><a href = "https://www.youtube.com/watch?v=HBp3n2Cu3WQ"> youtu.be/watch?v=HBp3n2Cu3WQ </a></td>
+    <td>4:46</td>
+    <td>1</td>
+    <td>278</td>
+    <td>0:04:38</td>
+</tr>
+<tr>
     <td>ANNIHILATED LOVE</td>
     <td>STARSET</td>
     <td>HORIZONS</td>
     <td><a href = "https://www.youtube.com/watch?v=wG7D5xITxos"> youtu.be/watch?v=wG7D5xITxos </a></td>
     <td>4:44</td>
-    <td>1</td>
+    <td>2</td>
     <td>277</td>
     <td>0:04:37</td>
+</tr>
+<tr>
+    <td>Indestructible</td>
+    <td>Disturbed</td>
+    <td>Indestructible</td>
+    <td><a href = "https://www.youtube.com/watch?v=u_JqI0TLPFk"> youtu.be/watch?v=u_JqI0TLPFk </a></td>
+    <td>4:38</td>
+    <td>1</td>
+    <td>270</td>
+    <td>0:04:30</td>
 </tr>
 <tr>
     <td>Don't Tell Me (feat. Ann Wilson)</td>
@@ -1200,6 +1316,16 @@
     <td>0:04:24</td>
 </tr>
 <tr>
+    <td>Fire It Up</td>
+    <td>Disturbed</td>
+    <td>Immortalized</td>
+    <td><a href = "https://www.youtube.com/watch?v=XgNqAMCZAFQ"> youtu.be/watch?v=XgNqAMCZAFQ </a></td>
+    <td>4:05</td>
+    <td>3</td>
+    <td>262</td>
+    <td>0:04:22</td>
+</tr>
+<tr>
     <td>New Divide</td>
     <td>Linkin Park</td>
     <td>Papercuts</td>
@@ -1208,16 +1334,6 @@
     <td>1</td>
     <td>262</td>
     <td>0:04:22</td>
-</tr>
-<tr>
-    <td>Home</td>
-    <td>Three Days Grace</td>
-    <td>Three Days Grace</td>
-    <td><a href = "https://www.youtube.com/watch?v=6Xu_FG23xXY"> youtu.be/watch?v=6Xu_FG23xXY </a></td>
-    <td>4:20</td>
-    <td>1</td>
-    <td>256</td>
-    <td>0:04:16</td>
 </tr>
 <tr>
     <td>Feeding the Fire</td>
@@ -1240,11 +1356,11 @@
     <td>0:04:10</td>
 </tr>
 <tr>
-    <td>The Light</td>
+    <td>Immortalized</td>
     <td>Disturbed</td>
     <td>Immortalized</td>
-    <td><a href = "https://www.youtube.com/watch?v=buaJabSblAU"> youtu.be/watch?v=buaJabSblAU </a></td>
-    <td>4:16</td>
+    <td><a href = "https://www.youtube.com/watch?v=pwoVqxn82AA"> youtu.be/watch?v=pwoVqxn82AA </a></td>
+    <td>4:17</td>
     <td>1</td>
     <td>250</td>
     <td>0:04:10</td>
@@ -1310,26 +1426,6 @@
     <td>0:04:01</td>
 </tr>
 <tr>
-    <td>Fire It Up</td>
-    <td>Disturbed</td>
-    <td>Immortalized</td>
-    <td><a href = "https://www.youtube.com/watch?v=XgNqAMCZAFQ"> youtu.be/watch?v=XgNqAMCZAFQ </a></td>
-    <td>4:05</td>
-    <td>2</td>
-    <td>239</td>
-    <td>0:03:59</td>
-</tr>
-<tr>
-    <td>Open Your Eyes</td>
-    <td>Disturbed</td>
-    <td>Immortalized</td>
-    <td><a href = "https://www.youtube.com/watch?v=mg5UEWBfOHM"> youtu.be/watch?v=mg5UEWBfOHM </a></td>
-    <td>3:57</td>
-    <td>1</td>
-    <td>231</td>
-    <td>0:03:51</td>
-</tr>
-<tr>
     <td>Want</td>
     <td>Disturbed</td>
     <td>The Sickness</td>
@@ -1358,6 +1454,16 @@
     <td>2</td>
     <td>224</td>
     <td>0:03:44</td>
+</tr>
+<tr>
+    <td>The Game</td>
+    <td>Disturbed</td>
+    <td>The Sickness</td>
+    <td><a href = "https://www.youtube.com/watch?v=nO3ReVVj-ss"> youtu.be/watch?v=nO3ReVVj-ss </a></td>
+    <td>3:46</td>
+    <td>1</td>
+    <td>221</td>
+    <td>0:03:41</td>
 </tr>
 <tr>
     <td>Façade</td>
@@ -1410,16 +1516,6 @@
     <td>0:03:30</td>
 </tr>
 <tr>
-    <td>INFECTED</td>
-    <td>STARSET</td>
-    <td>HORIZONS</td>
-    <td><a href = "https://www.youtube.com/watch?v=iImwzIiL33Q"> youtu.be/watch?v=iImwzIiL33Q </a></td>
-    <td>3:08</td>
-    <td>2</td>
-    <td>210</td>
-    <td>0:03:30</td>
-</tr>
-<tr>
     <td>Without You</td>
     <td>Three Days Grace</td>
     <td>Life Starts Now</td>
@@ -1428,6 +1524,16 @@
     <td>1</td>
     <td>209</td>
     <td>0:03:29</td>
+</tr>
+<tr>
+    <td>Born Like This</td>
+    <td>Three Days Grace</td>
+    <td>Three Days Grace</td>
+    <td><a href = "https://www.youtube.com/watch?v=f7OOwZAp12A"> youtu.be/watch?v=f7OOwZAp12A </a></td>
+    <td>3:32</td>
+    <td>1</td>
+    <td>206</td>
+    <td>0:03:26</td>
 </tr>
 <tr>
     <td>Overrated</td>
@@ -1470,6 +1576,16 @@
     <td>0:03:17</td>
 </tr>
 <tr>
+    <td>Pain</td>
+    <td>Three Days Grace</td>
+    <td>One-X</td>
+    <td><a href = "https://www.youtube.com/watch?v=h74nkELyHhM"> youtu.be/watch?v=h74nkELyHhM </a></td>
+    <td>3:23</td>
+    <td>1</td>
+    <td>197</td>
+    <td>0:03:17</td>
+</tr>
+<tr>
     <td>The Mountain</td>
     <td>Three Days Grace</td>
     <td>Outsider</td>
@@ -1500,6 +1616,16 @@
     <td>0:03:08</td>
 </tr>
 <tr>
+    <td>Life Starts Now</td>
+    <td>Three Days Grace</td>
+    <td>Life Starts Now</td>
+    <td><a href = "https://www.youtube.com/watch?v=0STSrGfWsq8"> youtu.be/watch?v=0STSrGfWsq8 </a></td>
+    <td>3:08</td>
+    <td>1</td>
+    <td>183</td>
+    <td>0:03:03</td>
+</tr>
+<tr>
     <td>So What</td>
     <td>Three Days Grace</td>
     <td>Human</td>
@@ -1518,6 +1644,16 @@
     <td>1</td>
     <td>173</td>
     <td>0:02:53</td>
+</tr>
+<tr>
+    <td>The Good Life</td>
+    <td>Three Days Grace</td>
+    <td>Life Starts Now</td>
+    <td><a href = "https://www.youtube.com/watch?v=TcpUF5bidoY"> youtu.be/watch?v=TcpUF5bidoY </a></td>
+    <td>2:53</td>
+    <td>1</td>
+    <td>168</td>
+    <td>0:02:48</td>
 </tr>
 <tr>
     <td>Break Stuff</td>
@@ -1550,16 +1686,6 @@
     <td>0:02:36</td>
 </tr>
 <tr>
-    <td>Chasing The First Time</td>
-    <td>Three Days Grace</td>
-    <td>Outsider</td>
-    <td><a href = "https://www.youtube.com/watch?v=Kt6llBGD4k8"> youtu.be/watch?v=Kt6llBGD4k8 </a></td>
-    <td>2:55</td>
-    <td>1</td>
-    <td>139</td>
-    <td>0:02:19</td>
-</tr>
-<tr>
     <td>Bring It Back</td>
     <td>Limp Bizkit</td>
     <td>Gold Cobra</td>
@@ -1570,16 +1696,6 @@
     <td>0:02:16</td>
 </tr>
 <tr>
-    <td>Droppin' Plates</td>
-    <td>Disturbed</td>
-    <td>The Sickness</td>
-    <td><a href = "https://www.youtube.com/watch?v=oHFru-YAMTs"> youtu.be/watch?v=oHFru-YAMTs </a></td>
-    <td>3:48</td>
-    <td>1</td>
-    <td>128</td>
-    <td>0:02:08</td>
-</tr>
-<tr>
     <td>Villain I'm Not</td>
     <td>Three Days Grace</td>
     <td>Outsider</td>
@@ -1588,26 +1704,6 @@
     <td>1</td>
     <td>118</td>
     <td>0:01:58</td>
-</tr>
-<tr>
-    <td>Land of Confusion</td>
-    <td>Disturbed</td>
-    <td>Ten Thousand Fists</td>
-    <td><a href = "https://www.youtube.com/watch?v=3wtqy_dKDVM"> youtu.be/watch?v=3wtqy_dKDVM </a></td>
-    <td>4:47</td>
-    <td>2</td>
-    <td>102</td>
-    <td>0:01:42</td>
-</tr>
-<tr>
-    <td>Already Gone</td>
-    <td>Disturbed</td>
-    <td>Evolution</td>
-    <td><a href = "https://www.youtube.com/watch?v=qU9lK0pXWas"> youtu.be/watch?v=qU9lK0pXWas </a></td>
-    <td>4:28</td>
-    <td>1</td>
-    <td>85</td>
-    <td>0:01:25</td>
 </tr>
 <tr>
     <td>Time That Remains</td>
@@ -1628,6 +1724,16 @@
     <td>2</td>
     <td>69</td>
     <td>0:01:09</td>
+</tr>
+<tr>
+    <td>Strange Days</td>
+    <td>Three Days Grace</td>
+    <td>Outsider</td>
+    <td><a href = "https://www.youtube.com/watch?v=L_7fUolJRrw"> youtu.be/watch?v=L_7fUolJRrw </a></td>
+    <td>3:10</td>
+    <td>1</td>
+    <td>67</td>
+    <td>0:01:07</td>
 </tr>
 <tr>
     <td>The Order</td>
@@ -1660,6 +1766,16 @@
     <td>0:00:50</td>
 </tr>
 <tr>
+    <td>Redemption</td>
+    <td>Three Days Grace</td>
+    <td>EXPLOSIONS</td>
+    <td><a href = "https://www.youtube.com/watch?v=S_G_rQVR4nM"> youtu.be/watch?v=S_G_rQVR4nM </a></td>
+    <td>3:10</td>
+    <td>1</td>
+    <td>35</td>
+    <td>0:00:35</td>
+</tr>
+<tr>
     <td>The Best Ones Lie</td>
     <td>Disturbed</td>
     <td>Evolution</td>
@@ -1668,6 +1784,26 @@
     <td>1</td>
     <td>35</td>
     <td>0:00:35</td>
+</tr>
+<tr>
+    <td>Friendly Fire</td>
+    <td>Linkin Park</td>
+    <td>Papercuts</td>
+    <td><a href = "https://www.youtube.com/watch?v=B6sRR46CaRk"> youtu.be/watch?v=B6sRR46CaRk </a></td>
+    <td>2:56</td>
+    <td>1</td>
+    <td>29</td>
+    <td>0:00:29</td>
+</tr>
+<tr>
+    <td>I Am An Outsider</td>
+    <td>Three Days Grace</td>
+    <td>Outsider</td>
+    <td><a href = "https://www.youtube.com/watch?v=BDeTke041NI"> youtu.be/watch?v=BDeTke041NI </a></td>
+    <td>2:42</td>
+    <td>1</td>
+    <td>28</td>
+    <td>0:00:28</td>
 </tr>
 <tr>
     <td>Lost in You</td>
@@ -1800,11 +1936,21 @@
     <td>0:00:00</td>
 </tr>
 <tr>
-    <td>Immortalized</td>
-    <td>Disturbed</td>
-    <td>Immortalized</td>
-    <td><a href = "https://www.youtube.com/watch?v=pwoVqxn82AA"> youtu.be/watch?v=pwoVqxn82AA </a></td>
-    <td>4:17</td>
+    <td>In Pieces</td>
+    <td>Linkin Park</td>
+    <td>Minutes to Midnight</td>
+    <td><a href = "https://www.youtube.com/watch?v=5Vu_um5sGQg"> youtu.be/watch?v=5Vu_um5sGQg </a></td>
+    <td>3:38</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0:00:00</td>
+</tr>
+<tr>
+    <td>Infra-Red</td>
+    <td>Three Days Grace</td>
+    <td>Outsider</td>
+    <td><a href = "https://www.youtube.com/watch?v=FS_fDnKauGE"> youtu.be/watch?v=FS_fDnKauGE </a></td>
+    <td>3:51</td>
     <td>1</td>
     <td>0</td>
     <td>0:00:00</td>
@@ -1890,24 +2036,24 @@
     <td>0:00:00</td>
 </tr>
 <tr>
-    <td>198</td>
-    <td>19</td>
-    <td>36</td>
+    <td>215</td>
+    <td>20</td>
+    <td>39</td>
     <td><a href = "">  </a></td>
-    <td>12:22:18</td>
-    <td>907</td>
-    <td>184724</td>
-    <td>51:18:44</td>
+    <td>13:18:19</td>
+    <td>976</td>
+    <td>198761</td>
+    <td>55:12:41</td>
 </tr>
 <tr>
     <td></td>
     <td></td>
     <td></td>
     <td><a href = "">  </a></td>
-    <td>0:03:44</td>
-    <td>4.5808</td>
-    <td>932.9495</td>
-    <td>0:15:32</td>
+    <td>0:03:42</td>
+    <td>4.5395</td>
+    <td>924.4698</td>
+    <td>0:15:24</td>
 </tr>
     </table>
 
