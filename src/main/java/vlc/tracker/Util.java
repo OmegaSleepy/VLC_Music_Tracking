@@ -5,12 +5,8 @@ import log.Log;
 import sql.SqlConnection;
 import sql.query.Query;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.Scanner;
-
-import static vlc.tracker.ExportInfo.saveSongsToHTML;
 
 public class Util {
 
@@ -33,8 +29,8 @@ public class Util {
         CrashUtil.crash(e);
     }
 
-    public static boolean isValid (Song song) {
-        return song.equals(Song.EMPTY_SONG) || song.equals(Song.TITLE_SONG);
+    public static boolean isValid (SongEntry songEntry) {
+        return songEntry.equals(SongEntry.EMPTY_SONG_RECORD) || songEntry.equals(SongEntry.TITLE_SONG_RECORD);
     }
 
     public static void printSongs(){

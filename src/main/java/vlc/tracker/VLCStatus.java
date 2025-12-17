@@ -12,6 +12,8 @@ import java.io.*;
 
 import java.util.Base64;
 
+import static vlc.tracker.SongEntry.fix;
+
 public class VLCStatus {
 
     // Build the URL to VLC's status XML endpoint
@@ -30,7 +32,7 @@ public class VLCStatus {
     // Username is empty, password is what you set in VLC
     static String auth = ":password";
 
-    public static Song getCurrentSong() throws Exception {
+    public static SongEntry getCurrentSong() throws Exception {
 
         Document doc = getDocument();
 
@@ -48,12 +50,12 @@ public class VLCStatus {
             state = states.item(0).getTextContent();
         }
 
-        String title = (getAttribute(infos,"title"));
-        String artist = (getAttribute(infos,"artist"));
-        String album = (getAttribute(infos,"album"));
+        String title = fix(getAttribute(infos,"title"));
+        String artist = fix(getAttribute(infos,"artist"));
+        String album = fix(getAttribute(infos,"album"));
         String comment = (getAttribute(infos,"comment"));
 
-        return new Song(title, artist, album, comment, songLength, state);
+        return new SongEntry(title, artist, album, comment, songLength, state);
     }
 
     private static Document getDocument () throws IOException, ParserConfigurationException, SAXException {

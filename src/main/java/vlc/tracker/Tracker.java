@@ -24,22 +24,22 @@ public class Tracker {
 
     public static final int MINIMAL_ATTENTION = 20; //seconds
 
-    public static ArrayList<Song> songs = new ArrayList<>();
+    public static ArrayList<SongEntry> songEntries = new ArrayList<>();
 
-    public static void addToDB (Song song, int time) throws SQLException {
+    public static void addToDB (SongEntry songEntry, int time) throws SQLException {
 
         var con = getConnection();
 
-        if(isValid(song)) return;
+        if(isValid(songEntry)) return;
 
         StringBuilder statement = new StringBuilder();
 
         statement.append("insert into musicindex.musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
-                quote(song.title),
-                quote(song.artist),
-                quote(song.album),
-                quote(song.comment),
-                song.length
+                quote(songEntry.title()),
+                quote(songEntry.artist()),
+                quote(songEntry.album()),
+                quote(songEntry.comment()),
+                songEntry.length()
         ));
 
         int change = 1;
@@ -54,16 +54,16 @@ public class Tracker {
 
         Log.exec(query);
         preparedStatement.execute();
-        Log.exec("Logged song: %s".formatted(song));
+        Log.exec("Logged songEntry: %s".formatted(songEntry));
 
         con.close();
 
     }
 
-    public static void addTime(Song song, double time) throws SQLException {
+    public static void addTime(SongEntry songEntry, double time) throws SQLException {
         var con = getConnection();
 
-        if(isValid(song)) return;
+        if(isValid(songEntry)) return;
 
         //ms -> s
         time /= 1000;
@@ -74,7 +74,7 @@ public class Tracker {
 
         String query = "update musicIndex.musicSpy " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
-                "where title = %s;".formatted(quote(song.title));
+                "where title = %s;".formatted(quote(songEntry.title()));
 
         PreparedStatement statement = con.prepareStatement(query);
 
@@ -93,13 +93,13 @@ public class Tracker {
         Log.MAX_LOGS = 16;
         LogFileHandler.cleanUp();
 
-        Song previous = Song.EMPTY_SONG;
-        Song current = Song.EMPTY_SONG;
+        SongEntry previous = SongEntry.EMPTY_SONG_RECORD;
+        SongEntry current = SongEntry.EMPTY_SONG_RECORD;
 
         long timeStep = (long) 1e3;
         double timeListenedToTheSong = 0;
 
-        while (songs.size() < 1000) {
+        while (songEntries.size() < 1000) {
             
             try{
                 current = VLCStatus.getCurrentSong();
@@ -119,7 +119,7 @@ public class Tracker {
 
                 addTime(previous, timeListenedToTheSong);
 
-                songs.add(current);
+                songEntries.add(current);
                 addToDB(current, (int) timeListenedToTheSong);
 
                 timeListenedToTheSong = 0;
@@ -140,14 +140,14 @@ public class Tracker {
 
     }
 
-    private static double printAndUpdateTime (Song current, double timeListenedToTheSong, long timeStep) {
+    private static double printAndUpdateTime (SongEntry current, double timeListenedToTheSong, long timeStep) {
 
-        if(!current.status.equals("paused"))
+        if(!current.status().equals("paused"))
             timeListenedToTheSong += timeStep;
 
         System.out.printf("\rPlayed for %s sec", timeListenedToTheSong /1000);
 
-        if(current.status.equals("paused"))
+        if(current.status().equals("paused"))
             System.out.print(". Paused");
 
         return timeListenedToTheSong;
