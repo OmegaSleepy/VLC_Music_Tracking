@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -216,8 +217,11 @@ public class ExportInfo {
             html.append(line);
         });
 
+        String userHome = System.getProperty("user.home");
+        Path desktop = Paths.get(userHome, "Desktop", "report.html");
+
         try {
-            Files.write(outPath, html.toString().getBytes());
+            Files.write(desktop, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

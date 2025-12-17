@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>VLC music export</title>
     <style>
+        :root {
+            --backgroundLight : #aefcee;
+            --backgroundDark  : #3B8183;
+            --accentLight     : #aefdde;
+            --accentDark      : #0f172a;
+            --shadow: color-mix(in srgb, var(--accentDark) 73%, transparent);
+            --box-fill: color-mix(in srgb, var(--accentLight) 87%, transparent);
+        }
+
         body {
             font-family: "JetBrains Mono", sans-serif;
             margin: 0;
@@ -13,9 +22,15 @@
         h1 {
             text-align: center;
             margin-top: 20px;
-            color: #ffffff;
-            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+            color: var(--box-fill);
+            font-size: 4em;
+            text-shadow:
+                    -2px -2px 0 var(--accentDark),
+                    2px -2px 0 var(--accentDark),
+                    -2px 2px 0 var(--accentDark),
+                    2px 2px 0 var(--accentDark);
         }
+
         div {
             display: flex;
             justify-content: center;
@@ -24,13 +39,13 @@
         }
 
         table {
-            background-image: linear-gradient(#aefddeaa, #aefceeaa);
+            background: var(--box-fill);
         }
 
         table, th, td {
-            border: 3px solid #3B8183;
+            border: 3px solid var(--backgroundDark);
             border-collapse: collapse;
-            box-shadow: 5px 5px 15px #0f172a55;
+            box-shadow: 5px 5px 15px var(--shadow);
         }
         th, td {
             padding: 10px;
@@ -78,29 +93,29 @@
             0%,15% {
                 --a: 135deg;
                 --p: 20%;
-                --c1: #3B8183;
-                --c2: #aefcee;
+                --c1: var(--backgroundDark);
+                --c2: var(--backgroundLight);
                 background-position: 0 0,var(--s) var(--s);
             }
             45%,50% {
                 --a: 90deg;
                 --p: 25%;
-                --c1: #3B8183;
-                --c2: #aefcee;
+                --c1: var(--backgroundDark);
+                --c2: var(--backgroundLight);
                 background-position: 0 0,var(--s) var(--s);
             }
             50.01%,55% {
                 --a: 90deg;
                 --p: 25%;
-                --c2: #3B8183;
-                --c1: #aefcee;
+                --c2: var(--backgroundDark);
+                --c1: var(--backgroundLight);
                 background-position: var(--s) 0,0 var(--s);
             }
             85%,100% {
                 --a: 135deg;
                 --p: 20%;
-                --c2: #3B8183;
-                --c1: #aefcee;
+                --c2: var(--backgroundDark);
+                --c1: var(--backgroundLight);
                 background-position: var(--s) 0,0 var(--s);
             }
         }
