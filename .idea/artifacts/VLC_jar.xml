@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="VLC_Spyware:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/VLC_Spyware_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="VLC:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VLC_jar</output-path>
     <root id="archive" name="VLC_Spyware.jar">
       <element id="module-output" name="VLC_Spyware" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../SQLnow/out/artifacts/SQLnow_jar/SQLnow.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.2.0/kotlin-stdlib-jdk8-2.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../SQLnow/out/artifacts/SQLnow_jar/SQLnow.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/13.0/annotations-13.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.2.0/kotlin-stdlib-jdk7-2.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib/2.2.0/kotlin-stdlib-2.2.0.jar" path-in-jar="/" />

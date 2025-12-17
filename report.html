@@ -1,4 +1,145 @@
-<!DOCTYPE html><HTML lang="en"><head>    <meta charset="UTF-8">    <title>VLC music export</title>    <link rel="icon" href="vlc.ico" type="image/x-icon">    <style>        body {            font-family: "JetBrains Mono", sans-serif;            margin: 0;            padding: 0;        }        h1 {            text-align: center;            margin-top: 20px;            color: #ffffff;            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;        }        div {            display: flex;            justify-content: center;            align-items: center;            padding: 20px;        }        table {            background-image: linear-gradient(#aefddeaa, #aefceeaa);        }        table, th, td {            border: 3px solid #3B8183;            border-collapse: collapse;            box-shadow: 5px 5px 15px #0f172a55;        }        th, td {            padding: 10px;        }        @property --a{            syntax: '<angle>';            inherits: true;            initial-value: 0deg;        }        @property --p {            syntax: '<percentage>';            inherits: true;            initial-value: 0%;        }        @property --c1 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        @property --c2 {            syntax: '<color>';            inherits: true;            initial-value: #000;        }        html {            --s: 80px;            --_g: #0000, var(--c1) 2deg calc(var(--a) - 2deg),#0000 var(--a);            background:                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g)),                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g))                    var(--c2);            background-size: calc(2*var(--s)) calc(2*var(--s));            animation: m 2s infinite alternate linear;        }        @keyframes m {            0%,15% {                --a: 135deg;                --p: 20%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            45%,50% {                --a: 90deg;                --p: 25%;                --c1: #3B8183;                --c2: #aefcee;                background-position: 0 0,var(--s) var(--s);            }            50.01%,55% {                --a: 90deg;                --p: 25%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }            85%,100% {                --a: 135deg;                --p: 20%;                --c2: #3B8183;                --c1: #aefcee;                background-position: var(--s) 0,0 var(--s);            }        }    </style></head><body><h1> VLC information</h1><div>    <table>        <tr>            <th> VLC Version</th>            <th> Export Date</th>            <th> Total Songs</th>            <th> Total Time (hh:mm:ss)</th>        </tr>        <tr>            <td> 3.0.21 Vetinari</td>            <td> Tue Dec 16 23:20:33 EET 2025 </td>            <td> 198</td>            <td> 51:18:44</td>        </tr>    </table></div><div>    <table id="MusicTable">        <tr>            <th> Title</th>            <th> Artist</th>            <th> Album</th>            <th> Link</th>            <th> Length (mm:ss)</th>            <th> Times Played</th>            <th> Time (seconds) </th>            <th> Time (hh:mm:ss) </th>        </tr><tr>
+<!DOCTYPE html>
+<HTML lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VLC music export</title>
+    <link rel="icon" href="vlc.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "JetBrains Mono", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffffff;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        table {
+            background-image: linear-gradient(#aefddeaa, #aefceeaa);
+        }
+
+        table, th, td {
+            border: 3px solid #3B8183;
+            border-collapse: collapse;
+            box-shadow: 5px 5px 15px #0f172a55;
+        }
+        th, td {
+            padding: 10px;
+        }
+
+        @property --a{
+            syntax: '<angle>';
+            inherits: true;
+            initial-value: 0deg;
+        }
+        @property --p {
+            syntax: '<percentage>';
+            inherits: true;
+            initial-value: 0%;
+        }
+        @property --c1 {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #000;
+        }
+        @property --c2 {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #000;
+        }
+
+        html {
+            --s: 80px;
+            --_g: #0000, var(--c1) 2deg calc(var(--a) - 2deg),#0000 var(--a);
+            background:
+                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),
+                    conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),
+                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),
+                    conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),
+                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),
+                    conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),
+                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g)),
+                    conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g))
+                    var(--c2);
+            background-size: calc(2*var(--s)) calc(2*var(--s));
+            animation: m 2s infinite alternate linear;
+        }
+
+        @keyframes m {
+            0%,15% {
+                --a: 135deg;
+                --p: 20%;
+                --c1: #3B8183;
+                --c2: #aefcee;
+                background-position: 0 0,var(--s) var(--s);
+            }
+            45%,50% {
+                --a: 90deg;
+                --p: 25%;
+                --c1: #3B8183;
+                --c2: #aefcee;
+                background-position: 0 0,var(--s) var(--s);
+            }
+            50.01%,55% {
+                --a: 90deg;
+                --p: 25%;
+                --c2: #3B8183;
+                --c1: #aefcee;
+                background-position: var(--s) 0,0 var(--s);
+            }
+            85%,100% {
+                --a: 135deg;
+                --p: 20%;
+                --c2: #3B8183;
+                --c1: #aefcee;
+                background-position: var(--s) 0,0 var(--s);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<h1> VLC information</h1>
+
+<div>
+    <table>
+        <tr>
+            <th> VLC Version</th>
+            <th> Export Date</th>
+            <th> Total Songs</th>
+            <th> Total Time (hh:mm:ss)</th>
+        </tr>
+        <tr>
+            <td> 3.0.21 Vetinari</td>
+            <td> Wed Dec 17 16:32:13 EET 2025 </td>
+            <td> 198</td>
+            <td> 51:18:44</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table id="MusicTable">
+        <tr>
+            <th> Title</th>
+            <th> Artist</th>
+            <th> Album</th>
+            <th> Link</th>
+            <th> Length (mm:ss)</th>
+            <th> Times Played</th>
+            <th> Time (seconds) </th>
+            <th> Time (hh:mm:ss) </th>
+        </tr><tr>
     <td>MANIFEST</td>
     <td>STARSET</td>
     <td>DIVISIONS</td>

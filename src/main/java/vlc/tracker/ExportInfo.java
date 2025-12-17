@@ -1,14 +1,21 @@
 package vlc.tracker;
 
+import common.FileUtil;
 import sql.SqlConnection;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static vlc.tracker.SqlSong.format;
 
@@ -79,9 +86,15 @@ public class ExportInfo {
     }
 
     public static void saveSongsToHTML() throws IOException, SQLException {
-        Path path = Path.of("report.html");
+        Path outPath = Path.of("report.html");
+        Path inPath = Path.of("template.txt");
+        ArrayList<String> contents = new ArrayList<>();
 
-        ArrayList<String> contents = new ArrayList<>(Files.readAllLines(Path.of("template.txt")));
+        InputStream in = ExportInfo.class.getClassLoader().getResourceAsStream(inPath.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+
+        contents.add(reader.lines().collect(Collectors.joining("\n")));
+
 
         Connection connection = null;
         try {
@@ -89,8 +102,6 @@ public class ExportInfo {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
 
 
         try {
@@ -205,10 +216,8 @@ public class ExportInfo {
             html.append(line);
         });
 
-
-
         try {
-            Files.write(path, html.toString().getBytes());
+            Files.write(outPath, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

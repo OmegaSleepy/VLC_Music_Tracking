@@ -2,25 +2,33 @@ package vlc.tracker;
 
 import log.Log;
 import log.LogFileHandler;
-import sql.*;
-import sql.query.Query;
 import vlc.common.ScriptsKt;
 
-import java.nio.file.Path;
-import java.sql.SQLData;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static vlc.tracker.Util.*;
 
-public class Main {
+public class Tracker {
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static final int MINIMAL_ATTENTION = 20; //seconds
 
     public static ArrayList<Song> songs = new ArrayList<>();
 
-    public static void addToDB (Song song, int time) {
+    public static void addToDB (Song song, int time) throws SQLException {
 
-        var con = new SqlConnection(Path.of("credentials.txt"));
+        var con = getConnection();
 
         if(isValid(song)) return;
 
@@ -40,16 +48,20 @@ public class Main {
 
         statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
 
-        Query.fromString(statement.toString(), con);
+        String query = statement.toString();
 
+        PreparedStatement preparedStatement = con.prepareStatement(query);
+
+        Log.exec(query);
+        preparedStatement.execute();
         Log.exec("Logged song: %s".formatted(song));
 
-        con.closeConnection();
+        con.close();
 
     }
 
-    public static void addTime(Song song, double time){
-        var con = new SqlConnection(Path.of("credentials.txt"));
+    public static void addTime(Song song, double time) throws SQLException {
+        var con = getConnection();
 
         if(isValid(song)) return;
 
@@ -60,16 +72,21 @@ public class Main {
 
         if(time < MINIMAL_ATTENTION) return;
 
-        String statement = "update musicIndex.musicSpy " +
+        String query = "update musicIndex.musicSpy " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
                 "where title = %s;".formatted(quote(song.title));
-        Query.fromString(statement, con);
 
-        con.closeConnection();
+        PreparedStatement statement = con.prepareStatement(query);
+
+        Log.exec(query);
+
+        statement.execute();
+
+        con.close();
 
     }
 
-    public static void main (String[] args) throws Exception {
+    public static void main() throws Exception {
 
         long start = System.nanoTime();
 
@@ -88,15 +105,13 @@ public class Main {
                 current = VLCStatus.getCurrentSong();
             } catch (Exception e) { //meaning VLC if offline
                 addTime(previous, timeListenedToTheSong);
-                printSongs();
+//                printSongs();
 
                 if(Util.getUserInput(
-                        "Enter any value to open vlc, none to crash"
+                        "\nEnter any value to open vlc, none to crash"
                 ).isBlank()) Util.end(e);
 
                 ScriptsKt.openVLC();
-                
-                Thread.sleep(timeStep*timeStep/8);
             }
 
             if (!previous.equals(current)) {
@@ -119,7 +134,9 @@ public class Main {
 
         printSongs();
 
-        Quit.end(start, System.nanoTime());
+        Log.info("End of program");
+        Log.info("Program took %f seconds to execute".formatted((double)(System.nanoTime() - start) * 1.0E-9));
+        LogFileHandler.saveLogFiles();
 
     }
 

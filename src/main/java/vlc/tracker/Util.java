@@ -46,10 +46,6 @@ public class Util {
                 "order by playtime desc;", connection));
     }
 
-    public static void main (String[] args) throws IOException, SQLException {
-        saveSongsToHTML();
-    }
-
 }
 
 

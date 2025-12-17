@@ -1,7 +1,6 @@
 package vlc.ui;
 
 import vlc.common.DownloadMusicKt;
-import vlc.common.PythonFileManagerKt;
 import vlc.common.ScriptsKt;
 
 import javax.swing.*;
@@ -114,7 +113,7 @@ public class DownloadUI {
         );
     }
 
-    public static void main (String[] args) {
+    public static void main () {
         MAX_LOGS = 8;
         cleanUp();
 
