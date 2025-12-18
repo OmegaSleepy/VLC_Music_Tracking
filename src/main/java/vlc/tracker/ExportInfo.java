@@ -1,24 +1,20 @@
 package vlc.tracker;
 
-import common.FileUtil;
-import sql.SqlConnection;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static vlc.tracker.SqlSong.format;
+import static vlc.tracker.Util.formatTimeHH;
 
 
 public class ExportInfo {
@@ -35,40 +31,10 @@ public class ExportInfo {
 
     static int totalLength = 0; //TotalTimesSeen
     static double averageLength = 0; //AverageLength
-    
-    public static String getFormatedResult(int value){
-        if(value < 10){
-            return "0" + value;
-        }
-        return String.valueOf(value);
-    }
 
-    public static String formatTimeHH (String value) {
-        int seconds = (int) Double.parseDouble(value);
-
-        StringBuilder format = new StringBuilder();
-
-        format.append((seconds / 3600));
-        format.append(":");
-        format.append(getFormatedResult((seconds / 60) % 60));
-        format.append(":");
-        format.append(getFormatedResult(seconds % 60));
-
-        return format.toString();
-    }
-
-    public static String formatTimeMM (String value) {
-        int seconds = (int) Double.parseDouble(value);
-        StringBuilder format = new StringBuilder();
-
-        format.append((seconds / 60) % 60);
-        format.append(":");
-        format.append(getFormatedResult(seconds % 60));
-
-        return format.toString();
-    }
 
     public static final Set<String> keys =  Set.of("${title}", "${artist}", "${album}", "${link}", "${linkString}","${length}", "${times}", "${playtime}", "${formattedTime}");
+
 
     public static String buildFormat(Map<String, String> map) {
         String value =  format;
@@ -86,7 +52,7 @@ public class ExportInfo {
 
     }
 
-    public static void saveSongsToHTML() throws IOException, SQLException {
+    public static void saveSongsToHTML() throws SQLException {
         Path outPath = Path.of("report.html");
         Path inPath = Path.of("template.txt");
         ArrayList<String> contents = new ArrayList<>();
@@ -95,7 +61,6 @@ public class ExportInfo {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 
         contents.add(reader.lines().collect(Collectors.joining("\n")));
-
 
         Connection connection = null;
         try {
@@ -218,7 +183,7 @@ public class ExportInfo {
         });
 
         String userHome = System.getProperty("user.home");
-        Path desktop = Paths.get(userHome, "Desktop", "report.html");
+        Path desktop = Paths.get(userHome, "Desktop", outPath.toString());
 
         try {
             Files.write(desktop, html.toString().getBytes());
@@ -228,7 +193,7 @@ public class ExportInfo {
 
     }
 
-    static HashMap<String, String> getBestSongs() throws SQLException {
+    private static HashMap<String, String> getBestSongs() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
         PreparedStatement statement = connection.prepareStatement("""
                 SELECT sum(playtime) as `Total`, artist FROM musicindex.musicspy

@@ -65,6 +65,7 @@ public class VLCStatus {
 
 
         // Encode "username:password" in Base64 for the Authorization header
+
         String encoded = Base64.getEncoder().encodeToString(auth.getBytes());
         conn.setRequestProperty("Authorization", "Basic " + encoded);
 

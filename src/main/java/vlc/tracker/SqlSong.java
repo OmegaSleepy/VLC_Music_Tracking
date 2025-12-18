@@ -1,7 +1,6 @@
 package vlc.tracker;
 
-import static vlc.tracker.ExportInfo.formatTimeHH;
-import static vlc.tracker.ExportInfo.formatTimeMM;
+import static vlc.tracker.Util.formatTimeMM;
 
 record SqlSong (String title, String artist, String album, String link, String length, String times, String playtime, String formattedTime) {
     public String toHTMLTable(){

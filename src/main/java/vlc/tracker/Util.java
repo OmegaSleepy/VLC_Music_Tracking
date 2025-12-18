@@ -24,6 +24,38 @@ public class Util {
 
     }
 
+    public static String getFormatedResult(int value){
+        if(value < 10){
+            return "0" + value;
+        }
+        return String.valueOf(value);
+    }
+
+    public static String formatTimeHH (String value) {
+        int seconds = (int) Double.parseDouble(value);
+
+        StringBuilder format = new StringBuilder();
+
+        format.append((seconds / 3600));
+        format.append(":");
+        format.append(getFormatedResult((seconds / 60) % 60));
+        format.append(":");
+        format.append(getFormatedResult(seconds % 60));
+
+        return format.toString();
+    }
+
+    public static String formatTimeMM (String value) {
+        int seconds = (int) Double.parseDouble(value);
+        StringBuilder format = new StringBuilder();
+
+        format.append((seconds / 60) % 60);
+        format.append(":");
+        format.append(getFormatedResult(seconds % 60));
+
+        return format.toString();
+    }
+
     public static void end(Exception e){
         Log.error("Check if VLC is started: ");
         CrashUtil.crash(e);

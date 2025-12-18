@@ -103,7 +103,7 @@ public class Tracker {
             
             try{
                 current = VLCStatus.getCurrentSong();
-            } catch (Exception e) { //meaning VLC if offline
+            } catch (Exception e) { //meaning VLC if offline in most cases
                 addTime(previous, timeListenedToTheSong);
 //                printSongs();
 
