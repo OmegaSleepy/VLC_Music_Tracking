@@ -1,28 +1,28 @@
 # VLC is a great platform
-This repository is deticated for a console java program which's goal is to track, analyze, save to sql and export as a html file a report about the listened music.  
+This repository is deticated for a console java program which's goal is to track, analyze, save to sql and export as an html file a report about the listened music (inside of VLC ofc).  
 
 #### PROJECT is in a CLEANUP state (delete when cleanup is done)
 - - -
 ## Recomendations and setup
 
-Usage is easy, if you want to build yourself run WIP ```build/main```, otherwise you can download the jar file in the releases tab in github. 
-It is recommeneded to have git bash (windows) or be on a UNIX system on your system for easier module usuage.
-Have a MySQL server started <----- THIS WILL BE CHANGED (SQLite rewrite 
+Usage is easy, if you want to build yourself run WIP ```build/main```, otherwise you can download the jar file in the releases tab in github.  <br>
+It is recommeneded to have git bash (windows) or be on a UNIX system on your system for easier module usuage.  <br>
+Have a MySQL server started <----- THIS WILL BE CHANGED (SQLite rewrite).  
 
 ## Use
-There are 2 (3) main args that you can use inside of a bash cmd ``track`` and ``export`` (see below for info on those). 
-The jar can be executed simply with the following command ``java -jar <JAR_NAME> <track/export>``.
+There are 2 (3) main args that you can use inside of a bash cmd ``track`` and ``export`` (see below for info on those).   
+The jar can be executed simply with the following command ``java -jar <JAR_NAME> <track/export>``.  
 
-I also have provided inside of ```main_package/scripts``` quick use scripts for two actions:
+I also have provided inside of ```main_package/scripts``` quick use scripts for two actions:  
 * running the tracker ``tracker.sh`` 
 * * runs the jar file with args ``track``, a line will show up: ``Would you like to turn on VLC`` and VLC will hopefully open and the tracking will begin
-* running the exporter ``createReport.sh``
-* * runs the jar file with args ``export``, a cmd will
+* running the exporter ``createReport.sh``  
+* * runs the jar file with args ``export``, a cmd will  
 
 ## Requirements
-* VLC ```3.0.21 Vetinari```, any older version is not tested, you can open an issue request in the future when ```3.1``` releases
-* Java JDK version 21+, any older will not work
-* DEPRICATED -> Python 3.11
+* VLC ```3.0.21 Vetinari```, any older version is not tested, you can open an issue request in the future when ```3.1``` releases  
+* Java JDK version 21+, any older will not work  
+* DEPRICATED -> Python 3.11  
 
 - - -
 ## Known issues
@@ -32,6 +32,15 @@ I also have provided inside of ```main_package/scripts``` quick use scripts for 
 4. MySQL support will be dropping and I will be focusing on rebasing into SQLite for way easier startup
 
 - - -
+## Reason for creation
+I love music, I love VLC.  
+This app is aimed at people that like the social aspect of being tracked (ex. yt music "yearly recap" or Spotify Wrapped), but like the open nature of VLC.  
+The app **does not** send any information to any server and works in localhost only. I will not make this project track, collect and sell information in any way. 
+The information that it saves is saved only on your machine and it is your responsability to safely distribute the contents of the tracker and the sql table.
+- - -
 ## Contribution
-* New to github here! I am almost sure I removed the ability to contrubute? If I didn't and you are deticated to help out, I recomend using IntelliJ IDEA
+* New to github here! I am almost sure I removed the ability to contrubute? If I didn't and you are deticated to help out, I recommend using IntelliJ IDEA. Post a pull request, will check it out! 
 * Run the maven ``pom.xml`` to download the used maven libraries
+
+- - -
+   *Sending ☕ love* ~ OmegaSleepy creator of the app
