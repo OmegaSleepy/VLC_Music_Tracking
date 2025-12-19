@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static vlc.common.Util.getConnection;
 import static vlc.tracker.SqlSong.format;
 import static vlc.common.Util.formatTimeHH;
 
@@ -58,22 +59,19 @@ public class ExportInfo {
         ArrayList<String> contents = new ArrayList<>();
 
         InputStream in = ExportInfo.class.getClassLoader().getResourceAsStream(inPath.toString());
+        assert in != null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 
         contents.add(reader.lines().collect(Collectors.joining("\n")));
 
         Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        connection = getConnection();
 
         try {
             PreparedStatement statement = connection.prepareStatement(
                     """
-                        SELECT * FROM musicindex.musicspy
-                        where title != "title" and artist not like "%Sān-Z%"
+                        SELECT * FROM music
+                        where title != 'title'
                         order by playtime desc;
                     """);
             ResultSet resultSet = statement.executeQuery();
@@ -89,7 +87,7 @@ public class ExportInfo {
 
                 String format = formatTimeHH(playtime);
 
-                SqlSong song = new SqlSong(title,artist,album,link,length,times,playtime, format.toString());
+                SqlSong song = new SqlSong(title,artist,album,link,length,times,playtime, format);
 
                 contents.add(song.toHTMLTable());
             }
@@ -105,7 +103,7 @@ public class ExportInfo {
                         AVG(length) as AverageLength,
                         AVG(timesSeen) as AverageTimesSeen,
                         AVG(playtime) as AveragePlaytime
-                    FROM musicindex.musicspy m;
+                    FROM music m;
                     """);
 
             ResultSet resultSet2 = statement.executeQuery();
@@ -193,9 +191,9 @@ public class ExportInfo {
     }
 
     private static HashMap<String, String> getBestSongs() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
+        Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement("""
-                SELECT sum(playtime) as `Total`, artist FROM musicindex.musicspy
+                SELECT sum(playtime) as `Total`, artist FROM music
                 group by artist
                 order by `Total` desc
                 """);

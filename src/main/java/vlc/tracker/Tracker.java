@@ -4,8 +4,6 @@ import vlc.common.ScriptsKt;
 import vlc.common.Util;
 import vlc.logger.Log;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class Tracker {
 
         StringBuilder statement = new StringBuilder();
 
-        statement.append("insert into music value(%s,%s,%s,%s,%s,1,0) ".formatted(
+        statement.append("INSERT INTO music (title, artist, album, url, \"length\") VALUES(%s, %s, %s, %s, %s) ".formatted(
                 quote(songEntry.title()),
                 quote(songEntry.artist()),
                 quote(songEntry.album()),
@@ -40,7 +38,7 @@ public class Tracker {
         if(time/1000 < MINIMAL_ATTENTION) change = 0;
         System.out.println(time/1000);
 
-        statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
+        statement.append("ON CONFLICT(title) DO UPDATE SET timesSeen = timesSeen + %d;".formatted(change));
 
         String query = statement.toString();
 
