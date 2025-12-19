@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static vlc.tracker.SqlSong.format;
-import static vlc.tracker.Util.formatTimeHH;
+import static vlc.common.Util.formatTimeHH;
 
 
 public class ExportInfo {
@@ -68,7 +68,6 @@ public class ExportInfo {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
         try {
             PreparedStatement statement = connection.prepareStatement(

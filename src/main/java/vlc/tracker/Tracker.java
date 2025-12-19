@@ -1,5 +1,7 @@
 package vlc.tracker;
 
+import vlc.common.ScriptsKt;
+import vlc.common.Util;
 import vlc.logger.Log;
 
 import java.sql.Connection;
@@ -10,17 +12,9 @@ import java.util.ArrayList;
 
 import static vlc.logger.LogFileHandler.cleanUp;
 import static vlc.logger.LogFileHandler.saveLogFiles;
-import static vlc.tracker.Util.*;
+import static vlc.common.Util.*;
 
 public class Tracker {
-
-    public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static final int MINIMAL_ATTENTION = 20; //seconds
 
@@ -34,7 +28,7 @@ public class Tracker {
 
         StringBuilder statement = new StringBuilder();
 
-        statement.append("insert into musicindex.musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
+        statement.append("insert into music value(%s,%s,%s,%s,%s,1,0) ".formatted(
                 quote(songEntry.title()),
                 quote(songEntry.artist()),
                 quote(songEntry.album()),
@@ -72,7 +66,7 @@ public class Tracker {
 
         if(time < MINIMAL_ATTENTION) return;
 
-        String query = "update musicIndex.musicSpy " +
+        String query = "update music " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
                 "where title = %s;".formatted(quote(songEntry.title()));
 
@@ -111,7 +105,7 @@ public class Tracker {
                         "\nEnter any value to open vlc, none to crash"
                 ).isBlank()) Util.end(e);
 
-//                ScriptsKt.openVLC();
+                ScriptsKt.openVLC();
             }
 
             if (!previous.equals(current)) {

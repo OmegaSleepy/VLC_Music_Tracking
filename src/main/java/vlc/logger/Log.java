@@ -171,7 +171,6 @@ public class Log {
 
         if (rows == null || rows.isEmpty()) return;
 
-
         //Sometimes queryResult can return malformed data with inconsistent column count,
         // this code block ensures that the absolute max is found
 
