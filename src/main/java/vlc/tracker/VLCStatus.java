@@ -76,8 +76,7 @@ public class VLCStatus {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         // Parse the XML from VLC
-        Document doc = dBuilder.parse(stream);
-        return doc;
+        return dBuilder.parse(stream);
     }
 
     private static String getAttribute(NodeList infos, String attribute){

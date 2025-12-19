@@ -1,9 +1,7 @@
 package vlc.tracker;
 
-import common.CrashUtil;
-import log.Log;
-import sql.SqlConnection;
-import sql.query.Query;
+import vlc.logger.CrashedKt;
+import vlc.logger.Log;
 
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -57,8 +55,8 @@ public class Util {
     }
 
     public static void end(Exception e){
-        Log.error("Check if VLC is started: ");
-        CrashUtil.crash(e);
+        Log.error("Check if VLC is started.");
+        CrashedKt.setCRASHED(true);
     }
 
     public static boolean isValid (SongEntry songEntry) {
@@ -67,11 +65,11 @@ public class Util {
 
     public static void printSongs(){
 
-        SqlConnection connection = new SqlConnection(Path.of("credentials.txt"));
+//        SqlConnection connection = new SqlConnection(Path.of("credentials.txt"));
 
-        Log.logSelect.accept(Query.fromString("SELECT * FROM musicindex.musicspy " +
-                "where title != \"title\" and title is not null " +
-                "order by playtime desc;", connection));
+//        Log.logSelect.accept(Query.fromString("SELECT * FROM musicindex.musicspy " +
+//                "where title != \"title\" and title is not null " +
+//                "order by playtime desc;", connection));
     }
 
 }

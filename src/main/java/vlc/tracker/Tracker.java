@@ -1,8 +1,6 @@
 package vlc.tracker;
 
-import log.Log;
-import log.LogFileHandler;
-import vlc.common.ScriptsKt;
+import vlc.logger.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static vlc.logger.LogFileHandler.cleanUp;
+import static vlc.logger.LogFileHandler.saveLogFiles;
 import static vlc.tracker.Util.*;
 
 public class Tracker {
@@ -91,7 +91,7 @@ public class Tracker {
         long start = System.nanoTime();
 
         Log.MAX_LOGS = 16;
-        LogFileHandler.cleanUp();
+        cleanUp();
 
         SongEntry previous = SongEntry.EMPTY_SONG_RECORD;
         SongEntry current = SongEntry.EMPTY_SONG_RECORD;
@@ -111,7 +111,7 @@ public class Tracker {
                         "\nEnter any value to open vlc, none to crash"
                 ).isBlank()) Util.end(e);
 
-                ScriptsKt.openVLC();
+//                ScriptsKt.openVLC();
             }
 
             if (!previous.equals(current)) {
@@ -136,7 +136,7 @@ public class Tracker {
 
         Log.info("End of program");
         Log.info("Program took %f seconds to execute".formatted((double)(System.nanoTime() - start) * 1.0E-9));
-        LogFileHandler.saveLogFiles();
+        saveLogFiles();
 
     }
 
