@@ -99,9 +99,11 @@ public class Tracker {
                 addTime(previous, timeListenedToTheSong);
 //                printSongs();
 
-                if(Util.getUserInput(
-                        "\nEnter any value to open vlc, none to crash"
-                ).isBlank()) Util.end(e);
+                if(Util.getUserInput("\nEnter any value to open vlc, none to crash").
+                        isBlank())
+                {
+                    Util.end(e);
+                }
 
                 ScriptsKt.openVLC();
             }

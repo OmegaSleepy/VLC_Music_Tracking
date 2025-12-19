@@ -60,6 +60,7 @@ public class Util {
     public static void end(Exception e){
         Log.error("Check if VLC is started.");
         CrashedKt.setCRASHED(true);
+        System.exit(-1);
     }
 
     public static boolean isValid (SongEntry songEntry) {

@@ -144,8 +144,8 @@ public class ExportInfo {
 
         values = buildFormat(new HashMap<>() {{
             put("${length}", formatTimeHH(String.valueOf(averageLength)));
-            put("${times}", String.format(String.valueOf(averageTimesPlayed)));
-            put("${playtime}", (String.valueOf(averageTime)));
+            put("${times}", String.format("%3.3s",averageTimesPlayed));
+            put("${playtime}", String.format("%3.3s",(averageTime)));
             put("${formattedTime}", formatTimeHH(String.valueOf(averageTime)));
         }});
 
