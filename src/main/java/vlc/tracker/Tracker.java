@@ -105,7 +105,8 @@ public class Tracker {
             } catch (Exception e) { //meaning VLC if offline in most cases
                 addTime(previous, timeListenedToTheSong);
                 if(getUserInput("\nEnter any value to open vlc, none to crash").isBlank()) {
-                    end(e);
+                    end();
+                    return;
                 }
 
                 ScriptsKt.openVLC();

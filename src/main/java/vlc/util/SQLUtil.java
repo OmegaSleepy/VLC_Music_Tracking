@@ -1,6 +1,7 @@
 package vlc.util;
 
 import vlc.Main;
+import vlc.logger.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class SQLUtil {
         String url;
 
         if(Main.config.dbType.equals("local")){
-            url = "jdbc:sqlite:musicspy.db";
+            url = "JDBC:sqlite:musicspy.db";
         } else{
-            url = "jbdc:sqlite:" + Main.config.dbPath.toString();
+            url = "JDBC:sqlite:" + Main.config.dbPath.toString();
         }
 
         try {
@@ -54,6 +55,7 @@ public class SQLUtil {
     }
 
     public static void createTable(){
+        Log.info("Table is being initialized");
         try {
             var con = getConnection();
             con.prepareStatement("""
@@ -64,7 +66,7 @@ public class SQLUtil {
             	    "url" TEXT NOT NULL,
             	    "length" INTEGER NOT NULL DEFAULT 1,
             	    "timesSeen"	INTEGER NOT NULL DEFAULT 1,
-            	    "playtime"	INTEGER DEFAULT 1,
+            	    "playtime" INTEGER DEFAULT 1,
             	    PRIMARY KEY("title")
             	)""").execute();
 

@@ -16,9 +16,10 @@ public class Main {
 
     public static void main (@NotNull String[] args) throws Exception {
         config = ConfigLoader.load();
+        loadOrCreate();
+
 
         createTable();
-        loadOrCreate();
 
         switch (args[0].toLowerCase()) {
             case "track" -> Tracker.main();
