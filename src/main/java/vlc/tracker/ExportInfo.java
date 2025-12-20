@@ -13,9 +13,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static vlc.util.Util.getConnection;
+import static vlc.util.SQLUtil.getConnection;
+import static vlc.util.StringUtil.formatTimeHH;
 import static vlc.tracker.SqlSong.format;
-import static vlc.util.Util.formatTimeHH;
 
 
 public class ExportInfo {

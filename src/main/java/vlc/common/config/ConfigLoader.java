@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import static vlc.util.Util.capitalizeString;
+import static vlc.util.StringUtil.capitalizeString;
 
 public class ConfigLoader {
 
@@ -41,7 +41,7 @@ public class ConfigLoader {
     }
 
     public static Config load() throws Exception{
-        Properties p =  new Properties();
+        Properties p = new Properties();
 
         try(var in = Files.newInputStream(PATH)){
             p.load(in);

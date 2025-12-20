@@ -12,8 +12,6 @@ public class Config {
     public boolean saveLogs;
     public int logsCap;
 
-
-
     public int minimalAttention;
 
     public String vlcWebLocation;

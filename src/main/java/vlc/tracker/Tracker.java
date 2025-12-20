@@ -1,7 +1,7 @@
 package vlc.tracker;
 
+import vlc.Main;
 import vlc.common.ScriptsKt;
-import vlc.util.Util;
 import vlc.logger.Log;
 
 import java.sql.PreparedStatement;
@@ -10,11 +10,16 @@ import java.util.ArrayList;
 
 import static vlc.logger.LogFileHandler.cleanUp;
 import static vlc.logger.LogFileHandler.saveLogFiles;
+import static vlc.util.SQLUtil.getConnection;
+import static vlc.util.SongUtil.isValid;
+import static vlc.util.SongUtil.printSongs;
+import static vlc.util.StringUtil.getUserInput;
+import static vlc.util.StringUtil.quote;
 import static vlc.util.Util.*;
 
 public class Tracker {
 
-    public static final int MINIMAL_ATTENTION = 20; //seconds
+    public static int MINIMAL_ATTENTION; //seconds
 
     public static ArrayList<SongEntry> songEntries = new ArrayList<>();
 
@@ -80,6 +85,8 @@ public class Tracker {
 
     public static void main() throws Exception {
 
+        MINIMAL_ATTENTION = Main.config.minimalAttention;
+
         long start = System.nanoTime();
 
         Log.MAX_LOGS = 16;
@@ -99,10 +106,10 @@ public class Tracker {
                 addTime(previous, timeListenedToTheSong);
 //                printSongs();
 
-                if(Util.getUserInput("\nEnter any value to open vlc, none to crash").
+                if(getUserInput("\nEnter any value to open vlc, none to crash").
                         isBlank())
                 {
-                    Util.end(e);
+                    end(e);
                 }
 
                 ScriptsKt.openVLC();
