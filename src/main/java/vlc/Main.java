@@ -1,12 +1,10 @@
 package vlc;
 
 import org.jetbrains.annotations.NotNull;
-import vlc.common.Util;
 import vlc.tracker.ExportInfo;
 import vlc.tracker.Tracker;
 
-import static vlc.common.Util.createTable;
-import static vlc.logger.LogFileHandler.saveLogFiles;
+import static vlc.util.Util.createTable;
 
 public class Main {
     public static void main (@NotNull String[] args) throws Exception {

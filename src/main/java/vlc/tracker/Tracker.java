@@ -1,7 +1,7 @@
 package vlc.tracker;
 
 import vlc.common.ScriptsKt;
-import vlc.common.Util;
+import vlc.util.Util;
 import vlc.logger.Log;
 
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static vlc.logger.LogFileHandler.cleanUp;
 import static vlc.logger.LogFileHandler.saveLogFiles;
-import static vlc.common.Util.*;
+import static vlc.util.Util.*;
 
 public class Tracker {
 

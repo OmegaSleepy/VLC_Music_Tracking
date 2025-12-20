@@ -1,4 +1,4 @@
-package vlc.common;
+package vlc.util;
 
 import vlc.logger.CrashedKt;
 import vlc.logger.Log;
@@ -16,6 +16,12 @@ public class Util {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String capitalizeString(String string){
+        string = string.toLowerCase();
+        string = string.substring(0, 1).toUpperCase() + string.substring(1);
+        return string;
     }
 
     public static String quote (String s) {
