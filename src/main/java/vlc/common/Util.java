@@ -118,7 +118,7 @@ public class Util {
 
     public static void createTable(){
         try {
-            var con = DriverManager.getConnection("jdbc:sqlite:musicspy.db");
+            var con = getConnection();
             con.prepareStatement("""
             	create table IF NOT EXISTS music(
             	    "title" TEXT NOT NULL,
