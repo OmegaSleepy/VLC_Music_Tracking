@@ -1,5 +1,7 @@
 package vlc.common.config;
 
+import vlc.logger.Log;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,10 +15,11 @@ public class ConfigLoader {
     private static final Path PATH = Path.of("settings.properties");
 
     public static Config loadOrCreate() throws Exception{
+        Log.info("Loading config...");
         if(Files.notExists(PATH)){
             createDefault();
         }
-
+        Log.info("Loaded config!");
         return ConfigLoader.load();
     }
 
@@ -83,7 +86,7 @@ public class ConfigLoader {
     }
 
     private static final List<String> LIST_OF_KNOWN_FOLDERS
-            = List.of("desktop","documents","downloads");
+            = List.of("desktop","documents","downloads","music");
 
     private static Path getPath(Properties p, String key, String def, String fileName) {
         if(LIST_OF_KNOWN_FOLDERS.contains(p.getProperty(key))){

@@ -57,7 +57,6 @@ public class ExportInfo {
     }
 
     public static void saveSongsToHTML() throws SQLException {
-        Path outPath = Path.of("report.html");
         Path inPath = Path.of("template.txt");
         ArrayList<String> contents = new ArrayList<>();
 
@@ -67,8 +66,7 @@ public class ExportInfo {
 
         contents.add(reader.lines().collect(Collectors.joining("\n")));
 
-        Connection connection = null;
-        connection = getConnection();
+        var connection = getConnection();
 
         try {
             PreparedStatement statement = connection.prepareStatement(

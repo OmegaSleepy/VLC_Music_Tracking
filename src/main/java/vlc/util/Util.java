@@ -8,10 +8,9 @@ import static vlc.util.SongUtil.printSongs;
 
 public class Util {
 
-    public static void end(Exception e){
+    public static void end(){
         Log.error("Check if VLC is started.");
         CrashedKt.setCRASHED(true);
-        System.exit(-1);
     }
 
     public static void main (String[] args) {
