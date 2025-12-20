@@ -91,6 +91,10 @@ public class ConfigLoader {
             return Paths.get(userHome, capitalizeString(p.getProperty(key)), fileName);
         }
 
+        if(!fileName.isEmpty()){
+            return Paths.get(p.getProperty(key), fileName);
+        }
+
         try {
             return Paths.get(p.getProperty(key, def));
         } catch (IllegalArgumentException e) {
