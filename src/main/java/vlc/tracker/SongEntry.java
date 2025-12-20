@@ -9,8 +9,8 @@ public record SongEntry
 
     private static Map<String, String> map = Map.of("&#39;","'");
 
-    static final SongEntry EMPTY_SONG_RECORD = new SongEntry("","","","",0, "NOTHING");
-    static final SongEntry TITLE_SONG_RECORD = new SongEntry("title","artist","album","comment",0, "NOTHING");
+    public static final SongEntry EMPTY_SONG_RECORD = new SongEntry("","","","",0, "NOTHING");
+    public static final SongEntry TITLE_SONG_RECORD = new SongEntry("title","artist","album","comment",0, "NOTHING");
 
     public static String fix(String that){
         for(String s: map.keySet()){

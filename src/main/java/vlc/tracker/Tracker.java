@@ -1,28 +1,25 @@
 package vlc.tracker;
 
-import log.Log;
-import log.LogFileHandler;
+import vlc.Main;
 import vlc.common.ScriptsKt;
+import vlc.logger.Log;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static vlc.tracker.Util.*;
+import static vlc.logger.LogFileHandler.cleanUp;
+import static vlc.logger.LogFileHandler.saveLogFiles;
+import static vlc.util.SQLUtil.getConnection;
+import static vlc.util.SongUtil.isValid;
+import static vlc.util.SongUtil.printSongs;
+import static vlc.util.StringUtil.getUserInput;
+import static vlc.util.StringUtil.quote;
+import static vlc.util.Util.*;
 
 public class Tracker {
 
-    public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static final int MINIMAL_ATTENTION = 20; //seconds
+    public static int MINIMAL_ATTENTION; //seconds
 
     public static ArrayList<SongEntry> songEntries = new ArrayList<>();
 
@@ -34,7 +31,7 @@ public class Tracker {
 
         StringBuilder statement = new StringBuilder();
 
-        statement.append("insert into musicindex.musicSpy value(%s,%s,%s,%s,%s,1,0) ".formatted(
+        statement.append("INSERT INTO music (title, artist, album, url, \"length\") VALUES(%s, %s, %s, %s, %s) ".formatted(
                 quote(songEntry.title()),
                 quote(songEntry.artist()),
                 quote(songEntry.album()),
@@ -46,7 +43,7 @@ public class Tracker {
         if(time/1000 < MINIMAL_ATTENTION) change = 0;
         System.out.println(time/1000);
 
-        statement.append("on DUPLICATE KEY UPDATE timesSeen = timesSeen+%d;".formatted(change));
+        statement.append("ON CONFLICT(title) DO UPDATE SET timesSeen = timesSeen + %d;".formatted(change));
 
         String query = statement.toString();
 
@@ -72,7 +69,7 @@ public class Tracker {
 
         if(time < MINIMAL_ATTENTION) return;
 
-        String query = "update musicIndex.musicSpy " +
+        String query = "update music " +
                 "set playtime = playtime + %s ".formatted(formatedTime) +
                 "where title = %s;".formatted(quote(songEntry.title()));
 
@@ -88,10 +85,12 @@ public class Tracker {
 
     public static void main() throws Exception {
 
+        MINIMAL_ATTENTION = Main.config.minimalAttention;
+
         long start = System.nanoTime();
 
         Log.MAX_LOGS = 16;
-        LogFileHandler.cleanUp();
+        cleanUp();
 
         SongEntry previous = SongEntry.EMPTY_SONG_RECORD;
         SongEntry current = SongEntry.EMPTY_SONG_RECORD;
@@ -105,13 +104,13 @@ public class Tracker {
                 current = VLCStatus.getCurrentSong();
             } catch (Exception e) { //meaning VLC if offline in most cases
                 addTime(previous, timeListenedToTheSong);
-//                printSongs();
-
-                if(Util.getUserInput(
-                        "\nEnter any value to open vlc, none to crash"
-                ).isBlank()) Util.end(e);
+                if(getUserInput("\nEnter any value to open vlc, none to crash").isBlank()) {
+                    end();
+                    return;
+                }
 
                 ScriptsKt.openVLC();
+                Thread.sleep(timeStep*2);
             }
 
             if (!previous.equals(current)) {
@@ -136,7 +135,7 @@ public class Tracker {
 
         Log.info("End of program");
         Log.info("Program took %f seconds to execute".formatted((double)(System.nanoTime() - start) * 1.0E-9));
-        LogFileHandler.saveLogFiles();
+        saveLogFiles();
 
     }
 
