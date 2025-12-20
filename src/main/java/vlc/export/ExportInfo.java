@@ -1,6 +1,7 @@
-package vlc.tracker;
+package vlc.export;
 
 import vlc.Main;
+import vlc.logger.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,9 +16,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static vlc.export.SqlSong.format;
 import static vlc.util.SQLUtil.getConnection;
 import static vlc.util.StringUtil.formatTimeHH;
-import static vlc.tracker.SqlSong.format;
 
 
 public class ExportInfo {
@@ -40,7 +41,7 @@ public class ExportInfo {
 
 
     public static String buildFormat(Map<String, String> map) {
-        String value =  format;
+        String value = format;
         for (Map.Entry<String, String> entry : map.entrySet()) {
             value = value.replace(entry.getKey(), entry.getValue());
         }
@@ -181,8 +182,11 @@ public class ExportInfo {
             html.append(line);
         });
 
+        Path out = Main.config.reportPath;
+        Log.exec(out.toAbsolutePath().toString());
+
         try {
-            Files.write(Main.config.reportPath, html.toString().getBytes());
+            Files.write(out, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

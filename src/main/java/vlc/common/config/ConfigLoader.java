@@ -49,10 +49,10 @@ public class ConfigLoader {
 
         Config c = new Config();
 
-        c.vlcPath = getPath(p, "path.of.VLC", "C:/Program Files/VideoLan/VLC/vlc.exe");
-        c.dbType = get(p, "dbType", "local");
-        c.dbPath = getPath(p,"path.of.DB","");
-        c.reportPath = getPath(p,"path.of.Report","desktop");
+        c.vlcPath = getPath(p, "path.of.VLC", "C:/Program Files/VideoLan/VLC/vlc.exe","");
+        c.dbType = get(p, "db.type", "local");
+        c.dbPath = getPath(p,"path.of.DB","","musicspy.db");
+        c.reportPath = getPath(p,"path.of.REPORT","desktop","report.html");
 
         c.saveLogs = getBool(p, "saveLogs", true);
         c.logsCap = getInt(p, "logsCap", 8);
@@ -85,10 +85,10 @@ public class ConfigLoader {
     private static final List<String> LIST_OF_KNOWN_FOLDERS
             = List.of("desktop","documents","downloads");
 
-    private static Path getPath(Properties p, String key, String def) {
-        if(LIST_OF_KNOWN_FOLDERS.contains(key.toLowerCase())){
+    private static Path getPath(Properties p, String key, String def, String fileName) {
+        if(LIST_OF_KNOWN_FOLDERS.contains(p.getProperty(key))){
             String userHome = System.getProperty("user.home");
-            return Paths.get(userHome, capitalizeString(key));
+            return Paths.get(userHome, capitalizeString(p.getProperty(key)), fileName);
         }
 
         try {
