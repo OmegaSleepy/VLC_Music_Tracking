@@ -7,6 +7,7 @@ import vlc.tracker.ExportInfo;
 import vlc.tracker.Tracker;
 
 import static vlc.common.config.ConfigLoader.loadOrCreate;
+import static vlc.logger.LogFileHandler.saveLogFiles;
 import static vlc.util.SQLUtil.createTable;
 
 public class Main {
@@ -26,6 +27,10 @@ public class Main {
                 System.err.println("Unknown command");
                 System.exit(1);
             }
+        }
+
+        if(config.saveLogs){
+            saveLogFiles();
         }
     }
 

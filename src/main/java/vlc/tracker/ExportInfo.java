@@ -1,5 +1,7 @@
 package vlc.tracker;
 
+import vlc.Main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -179,11 +181,8 @@ public class ExportInfo {
             html.append(line);
         });
 
-        String userHome = System.getProperty("user.home");
-        Path desktop = Paths.get(userHome, "Desktop", outPath.toString());
-
         try {
-            Files.write(desktop, html.toString().getBytes());
+            Files.write(Main.config.reportPath, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
