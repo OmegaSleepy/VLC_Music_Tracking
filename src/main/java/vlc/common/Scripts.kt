@@ -3,13 +3,11 @@ package vlc.common
 import vlc.Main
 
 fun openVLC() {
-    val dir = Main.config.vlcPath;
+    if (ProcessHandle.allProcesses()
+            .anyMatch { it.info().command().orElse("").contains("vlc") }) {
+        return
+    }
 
-    val args = ArrayList<String>()
-    args.add(dir.toString())
-
-    val pp = ProcessBuilder(args)
-
-    pp.start()
+    ProcessBuilder(Main.config.vlcPath.toString()).start()
 }
 

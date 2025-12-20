@@ -104,15 +104,12 @@ public class Tracker {
                 current = VLCStatus.getCurrentSong();
             } catch (Exception e) { //meaning VLC if offline in most cases
                 addTime(previous, timeListenedToTheSong);
-//                printSongs();
-
-                if(getUserInput("\nEnter any value to open vlc, none to crash").
-                        isBlank())
-                {
+                if(getUserInput("\nEnter any value to open vlc, none to crash").isBlank()) {
                     end(e);
                 }
 
                 ScriptsKt.openVLC();
+                Thread.sleep(timeStep*2);
             }
 
             if (!previous.equals(current)) {
