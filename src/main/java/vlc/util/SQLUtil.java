@@ -66,7 +66,7 @@ public class SQLUtil {
             	    "timesSeen"	INTEGER NOT NULL DEFAULT 1,
             	    "playtime"	INTEGER DEFAULT 1,
             	    PRIMARY KEY("title")
-            	)""");
+            	)""").execute();
 
 
         } catch (SQLException e) {
