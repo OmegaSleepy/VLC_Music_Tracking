@@ -1,4 +1,7 @@
-package vlc.tracker;
+package vlc.export;
+
+import vlc.Main;
+import vlc.logger.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +16,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static vlc.tracker.SqlSong.format;
-import static vlc.tracker.Util.formatTimeHH;
+import static vlc.export.SqlSong.format;
+import static vlc.util.SQLUtil.getConnection;
+import static vlc.util.StringUtil.formatTimeHH;
 
 
 public class ExportInfo {
@@ -37,7 +41,7 @@ public class ExportInfo {
 
 
     public static String buildFormat(Map<String, String> map) {
-        String value =  format;
+        String value = format;
         for (Map.Entry<String, String> entry : map.entrySet()) {
             value = value.replace(entry.getKey(), entry.getValue());
         }
@@ -53,28 +57,22 @@ public class ExportInfo {
     }
 
     public static void saveSongsToHTML() throws SQLException {
-        Path outPath = Path.of("report.html");
         Path inPath = Path.of("template.txt");
         ArrayList<String> contents = new ArrayList<>();
 
         InputStream in = ExportInfo.class.getClassLoader().getResourceAsStream(inPath.toString());
+        assert in != null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 
         contents.add(reader.lines().collect(Collectors.joining("\n")));
 
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        var connection = getConnection();
 
         try {
             PreparedStatement statement = connection.prepareStatement(
                     """
-                        SELECT * FROM musicindex.musicspy
-                        where title != "title" and artist not like "%Sān-Z%"
+                        SELECT * FROM music
+                        where title != 'title'
                         order by playtime desc;
                     """);
             ResultSet resultSet = statement.executeQuery();
@@ -90,7 +88,7 @@ public class ExportInfo {
 
                 String format = formatTimeHH(playtime);
 
-                SqlSong song = new SqlSong(title,artist,album,link,length,times,playtime, format.toString());
+                SqlSong song = new SqlSong(title,artist,album,link,length,times,playtime, format);
 
                 contents.add(song.toHTMLTable());
             }
@@ -106,7 +104,7 @@ public class ExportInfo {
                         AVG(length) as AverageLength,
                         AVG(timesSeen) as AverageTimesSeen,
                         AVG(playtime) as AveragePlaytime
-                    FROM musicindex.musicspy m;
+                    FROM music m;
                     """);
 
             ResultSet resultSet2 = statement.executeQuery();
@@ -147,8 +145,8 @@ public class ExportInfo {
 
         values = buildFormat(new HashMap<>() {{
             put("${length}", formatTimeHH(String.valueOf(averageLength)));
-            put("${times}", String.format(String.valueOf(averageTimesPlayed)));
-            put("${playtime}", (String.valueOf(averageTime)));
+            put("${times}", String.format("%3.3s",averageTimesPlayed));
+            put("${playtime}", String.format("%3.3s",(averageTime)));
             put("${formattedTime}", formatTimeHH(String.valueOf(averageTime)));
         }});
 
@@ -182,11 +180,11 @@ public class ExportInfo {
             html.append(line);
         });
 
-        String userHome = System.getProperty("user.home");
-        Path desktop = Paths.get(userHome, "Desktop", outPath.toString());
+        Path out = Main.config.reportPath;
+        Log.exec(out.toAbsolutePath().toString());
 
         try {
-            Files.write(desktop, html.toString().getBytes());
+            Files.write(out, html.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -194,9 +192,9 @@ public class ExportInfo {
     }
 
     private static HashMap<String, String> getBestSongs() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","password");
+        Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement("""
-                SELECT sum(playtime) as `Total`, artist FROM musicindex.musicspy
+                SELECT sum(playtime) as `Total`, artist FROM music
                 group by artist
                 order by `Total` desc
                 """);

@@ -6,6 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+import vlc.Main;
 
 import java.net.*;
 import java.io.*;
@@ -22,7 +23,7 @@ public class VLCStatus {
 
     static {
         try {
-            url = new URI("http://localhost:8080/requests/status.xml").toURL();
+            url = new URI(Main.config.vlcWebLocation).toURL();
         } catch (MalformedURLException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -76,8 +77,7 @@ public class VLCStatus {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         // Parse the XML from VLC
-        Document doc = dBuilder.parse(stream);
-        return doc;
+        return dBuilder.parse(stream);
     }
 
     private static String getAttribute(NodeList infos, String attribute){

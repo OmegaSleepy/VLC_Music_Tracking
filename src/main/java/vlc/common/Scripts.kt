@@ -1,68 +1,13 @@
 package vlc.common
 
-import sql.SqlConnection
-import sql.query.Query
-import java.nio.file.Path
-
-fun createDBandTable(){
-    var con = SqlConnection(Path.of("credentials.txt"))
-
-    Query.fromString("use musicindex;" +
-            "DROP TABLE if exists musicspy;" +
-            "CREATE TABLE `musicspy` (\n" +
-            "  `title` varchar(64) NOT NULL,\n" +
-            "  `artist` varchar(64) DEFAULT NULL,\n" +
-            "  `album` varchar(64) DEFAULT NULL,\n" +
-            "  `url` varchar(128) DEFAULT NULL,\n" +
-            "  `length` int DEFAULT NULL,\n" +
-            "  `timesSeen` int DEFAULT NULL,\n" +
-            "  PRIMARY KEY (`title`)\n" +
-            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n",
-        con)
-
-}
-
-fun select(){
-    val con = SqlConnection(Path.of("credentials.txt"))
-
-    Query.fromString("SELECT * FROM musicindex.musicspy order by timesSeen desc;", con)
-}
+import vlc.Main
 
 fun openVLC() {
-    val dir = Path.of("C:/Program Files/VideoLan/VLC/vlc.exe")
-    val commands = "C:/Users/THEBEAST/Music/STARSET/Album - DIVISIONS/MANIFEST.mp3"
-
-    val args = ArrayList<String>()
-    args.add(dir.toString())
-    args.add(commands)
-
-    val pp = ProcessBuilder(args)
-
-    pp.start()
-}
-
-fun packageSingles(singles: List<String>):String {
-
-    val builder = StringBuilder("-single{")
-    for (single in singles) {
-        builder.append(single).append(',')
+    if (ProcessHandle.allProcesses()
+            .anyMatch { it.info().command().orElse("").contains("vlc") }) {
+        return
     }
-    builder.removeRange(builder.length - 1, builder.length - 1)
-    builder.append("}")
 
-    return builder.toString()
+    ProcessBuilder(Main.config.vlcPath.toString()).start()
 }
 
-fun packageAlbums(albums: List<String>):String {
-    val builder = StringBuilder("-albums{")
-    for (album in albums) {
-        builder.append(album).append(',')
-    }
-    builder.removeRange(builder.length - 1, builder.length - 1)
-    builder.append("}")
-    return builder.toString()
-}
-
-fun main(args: Array<String>) {
-    runPython(arrayOf("-single{hWqLuSnyqbI}"))
-}
