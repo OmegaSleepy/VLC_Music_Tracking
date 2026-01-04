@@ -1,16 +1,20 @@
-# VLC is a great platform
-This repository is deticated for a console java program which's goal is to track, analyze, save to sql and export as an html file a report about the listened music (inside of VLC ofc).  
+# Sophisticated VLC tracking app
+This repository is deticated for a console java program which's goal is to track, analyze, save to sqlite and export as an html file a report about the listened music (inside of VLC).  
 
-#### PROJECT is in a CLEANUP state (delete when cleanup is done)
 - - -
+
+## Requirements
+* VLC ```3.0.21 Vetinari```, any older version is not tested, you can open an issue request in the future when ```3.1``` releases  
+* Java JDK version 21+, any older will not work
+* (only for building) Maven install listed in %PATH%
+
 ## Recomendations and setup
 
-Usage is easy, if you want to build yourself run WIP ```build/main```, otherwise you can download the jar file in the releases tab in github.  <br>
-It is recommeneded to have git bash (windows) or be on a UNIX system on your system for easier module usuage.  <br>
-Have a MySQL server started <----- THIS WILL BE CHANGED (SQLite rewrite).  
+Usage is easy and does not require anything from the user other than clicking the .jar file <br>
+If you want to build yourself run ```mvn clean install``` inside of your cmd, otherwise you can download the jar file in the releases tab in github.  <br>
 
 ## Use
-There are 2 (3) main args that you can use inside of a bash cmd ``track`` and ``export`` (see below for info on those).   
+There are 2 main args that you can use inside of a bash cmd ``track`` and ``export`` (see below for info on those).   
 The jar can be executed simply with the following command ``java -jar <JAR_NAME> <track/export>``.  
 
 I also have provided inside of ```main_package/scripts``` quick use scripts for two actions:  
@@ -19,17 +23,10 @@ I also have provided inside of ```main_package/scripts``` quick use scripts for 
 * running the exporter ``createReport.sh``  
 * * runs the jar file with args ``export``, a cmd will  
 
-## Requirements
-* VLC ```3.0.21 Vetinari```, any older version is not tested, you can open an issue request in the future when ```3.1``` releases  
-* Java JDK version 21+, any older will not work  
-* DEPRICATED -> Python 3.11  
-
 - - -
-## Known issues
-1. The program uses a lib I wrote ``SQLnow``, but the implementation is buggy, currently a goal is to rewrite the few lines of lib usage, grab the logger from there and stop using the lib entirely
-2. When VLC is not open and the program asks the user if they want to open it, the program can open VLC, but not start tracking and ask the user if they want to open VLC again
-3. The VLC path is hardcoded, that can be fixed by creating a config file
-4. MySQL support will be dropping and I will be focusing on rebasing into SQLite for way easier startup
+## Known issues:
+1. When an integer overflows (very rare) there is no way to revalidate SQLite Data
+2. Due to poor rebase on my part, I lost some code and the program logging is not centralized
 
 - - -
 ## Reason for creation
@@ -41,6 +38,7 @@ The information that it saves is saved only on your machine and it is your respo
 ## Contribution
 * New to github here! I am almost sure I removed the ability to contrubute? If I didn't and you are deticated to help out, I recommend using IntelliJ IDEA. Post a pull request, will check it out! 
 * Run the maven ``pom.xml`` to download the used maven libraries
+* Run ```mvn clean install``` in your cmd inside of the project folder 
 
 - - -
    *Sending ☕ love* ~ OmegaSleepy creator of the app
