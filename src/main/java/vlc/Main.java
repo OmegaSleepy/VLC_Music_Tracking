@@ -30,6 +30,7 @@ public class Main {
         createTable();
 
         if(args.length < 1){
+            Log.error("There were no provided system args!");
             return;
         }
 
