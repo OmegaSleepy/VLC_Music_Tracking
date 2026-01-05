@@ -16,7 +16,22 @@ import static vlc.logger.Log.MAX_LOGS;
 
 public class LogFileHandler {
 
+    public static String LOG_DIR = "logs";
+    public static String CRASH_DIR = "crash";
+    public static String SUCCESSFUL_DIR = "regular";
+
     private LogFileHandler () {}
+
+    public static void createFolders () {
+
+        try {
+            Files.createDirectory(Path.of(LOG_DIR));
+            Files.createDirectory(Paths.get(LOG_DIR,CRASH_DIR));
+            Files.createDirectory(Paths.get(LOG_DIR,SUCCESSFUL_DIR));
+        } catch (IOException e) {
+        }
+
+    }
 
     /**
      * Deletes all logs in the {@code LOG_DIR} folder. For chronological deletion check {@code cleanUp}
@@ -140,14 +155,6 @@ public class LogFileHandler {
         info(getLogVersion());
         info(getLogCount());
         info("Created log file at %s.".formatted(logFile));
-
-        if (!Files.exists(workingDir)) {
-            try {
-                Files.createDirectory(workingDir);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
         List<String> log = new ArrayList<>();
 

@@ -87,10 +87,7 @@ public class Tracker {
 
         MINIMAL_ATTENTION = Main.config.minimalAttention;
 
-        long start = System.nanoTime();
 
-        Log.MAX_LOGS = 16;
-        cleanUp();
 
         SongEntry previous = SongEntry.EMPTY_SONG_RECORD;
         SongEntry current = SongEntry.EMPTY_SONG_RECORD;
@@ -132,11 +129,6 @@ public class Tracker {
         }
 
         printSongs();
-
-        Log.info("End of program");
-        Log.info("Program took %f seconds to execute".formatted((double)(System.nanoTime() - start) * 1.0E-9));
-        saveLogFiles();
-
     }
 
     private static double printAndUpdateTime (SongEntry current, double timeListenedToTheSong, long timeStep) {

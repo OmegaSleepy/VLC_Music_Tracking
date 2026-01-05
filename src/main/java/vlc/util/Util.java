@@ -1,5 +1,6 @@
 package vlc.util;
 
+import vlc.common.config.Config;
 import vlc.logger.CrashedKt;
 import vlc.logger.Log;
 
@@ -13,9 +14,10 @@ public class Util {
         CrashedKt.setCRASHED(true);
     }
 
-    public static void main (String[] args) {
-        createTable();
-        printSongs();
+    public static void printConfig(Config config){
+        config.getAsStringList().forEach((key,value) -> {
+            Log.info(key + " | " + value);
+        });
     }
 
 }

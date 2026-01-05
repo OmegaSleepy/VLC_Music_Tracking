@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static vlc.logger.LogFileHandler.LOG_DIR;
 import static vlc.logger.Settings.*;
 
 /**
@@ -23,9 +24,7 @@ public class Log {
 
     public static String LOG_VERSION = "1.5.0b";
     public static int MAX_LOGS = 16;
-    public static String LOG_DIR = "logs";
-    public static String CRASH_DIR = "crash";
-    public static String SUCCESSFUL_DIR = "regular";
+
 
 
     private Log () {
